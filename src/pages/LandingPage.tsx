@@ -20,7 +20,8 @@ import {
   Building,
   Target,
   Sparkles,
-  Zap
+  Zap,
+  Mic
 } from 'lucide-react';
 
 export const LandingPage: React.FC = () => {
@@ -553,6 +554,20 @@ export const LandingPage: React.FC = () => {
             <p className="text-xs text-slate-400 leading-relaxed">
               Audit offers, track letter of intent updates, verify onboarding checks, and generate annual placement validation reports.
             </p>
+          </div>
+
+
+          {/* ////////// feature - 9  /// */}
+        
+          <div className="bg-slate-950 border border-slate-900 hover:border-blue-500/20 rounded-2xl p-6 group transition-all">
+            <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-5 group-hover:bg-blue-600 group-hover:text-white transition-all">
+              < Mic className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-semibold text-white mb-2">AI Mock Interviews</h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Practice real interview questions, get instant feedback, improve communication skills, and boost confidence before actual interviews.
+            </p>
+            
           </div>
 
         </div>
