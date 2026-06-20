@@ -1,6 +1,8 @@
 import React from 'react';
+import { Brain, UserCheck, BookOpen, Users, Cpu, Calendar, Award } from 'lucide-react';
 
 export const StudentDashboard: React.FC = () => {
+ 
   return (
     <div className="p-6">
 
@@ -213,6 +215,41 @@ export const StudentDashboard: React.FC = () => {
   </div>
 
 </div>
+{/* roadmap */}
+  <div className="relative mt-24" >
+    <h1 className="text-2xl font-bold mb-6 text-center">
+        Roadmap to Placement
+      </h1>
+        
+             <div className="hidden lg:block absolute top-[40px] left-[5%] right-[5%] h-0.5 bg-slate-200"></div>
+             
+             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-6">
+               
+               {[
+                 { step: '01', title: 'Profile Building', desc: 'Secure, verified portfolio credentials.', icon: UserCheck },
+                 { step: '02', title: 'Skill Assessment', desc: 'AI proctored baseline tests.', icon: Brain },
+                 { step: '03', title: 'Learning Roadmap', desc: 'AI-curated targeted content gaps.', icon: BookOpen },
+                 { step: '04', title: 'Mentorship', desc: 'Mock trials & expert review logs.', icon: Users },
+                 { step: '05', title: 'AI Matching', desc: 'Vector alignment to active roles.', icon: Cpu },
+                 { step: '06', title: 'Interview', desc: 'Sync calendars and scheduling.', icon: Calendar },
+                 { step: '07', title: 'Placement', desc: 'Final contract signing and onboard.', icon: Award }
+               ].map((item, idx) => (
+                 <div key={idx} className="relative flex flex-col items-center text-center bg-white border border-slate-200 hover:border-slate-300 rounded-xl p-5 hover:translate-y-[-4px] transition-all shadow-sm hover:shadow-md">
+                   <div className="w-12 h-12 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-blue-600 shadow-sm relative z-10">
+                     <item.icon className="w-5 h-5" />
+                     <span className="absolute -top-1 -right-1 text-[9px] bg-blue-50 border border-blue-100 text-blue-700 font-mono w-4.5 h-4.5 rounded-full flex items-center justify-center font-bold shadow-sm">
+                       {item.step}
+                     </span>
+                   </div>
+                   <h3 className="text-xs font-bold text-slate-800 mt-4">{item.title}</h3>
+                   <p className="text-[10px] text-slate-500 mt-2 leading-relaxed">
+                     {item.desc}
+                   </p>
+                 </div>
+               ))}
+ 
+             </div>
+           </div>
     
     </div>
   );
