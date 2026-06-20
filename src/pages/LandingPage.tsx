@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import React, { useState, useEffect, useRef } from 'react';
+=======
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+>>>>>>> e26e572c082fc8a0a61ea7233110efd8410cc1cd
 import { 
   Briefcase, 
   GraduationCap, 
@@ -209,15 +214,15 @@ export const LandingPage: React.FC = () => {
                 Dashboards
               </button>
 
-              <div className="absolute top-full left-0 mt-2 w-60 bg-white border border-slate-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 py-2">
-                <a href="#" className="block px-4 py-2 text-slate-700 hover:bg-slate-50 transition-colors">Student Dashboard</a>
-                <a href="#" className="block px-4 py-2 text-slate-700 hover:bg-slate-50 transition-colors">College Dashboard</a>
-                <a href="#" className="block px-4 py-2 text-slate-700 hover:bg-slate-50 transition-colors">Recruiter Dashboard</a>
-                <a href="#" className="block px-4 py-2 text-slate-700 hover:bg-slate-50 transition-colors">Mentor Dashboard</a>
-                <a href="#" className="block px-4 py-2 text-slate-700 hover:bg-slate-50 transition-colors">Admin Dashboard</a>
-              </div>
-            </div>
-          </nav>
+    <div className="absolute top-full left-0 mt-2 w-60 bg-slate-900 border border-slate-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+      <a href="#" className="block px-4 py-2 hover:bg-slate-800">Student Dashboard</a>
+      <a href="#" className="block px-4 py-2 hover:bg-slate-800">College Dashboard</a>
+      <a href="#" className="block px-4 py-2 hover:bg-slate-800">Recruiter Dashboard</a>
+      <a href="#" className="block px-4 py-2 hover:bg-slate-800">Mentor Dashboard</a>
+      <a href="#" className="block px-4 py-2 hover:bg-slate-800">Admin Dashboard</a>
+    </div>
+  </div>
+</nav>
 
           <div className="flex items-center space-x-4">
             <button className="hidden sm:inline-flex text-sm text-slate-650 hover:text-slate-900 transition-colors font-semibold cursor-pointer">
