@@ -1,6 +1,16 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import { LandingPage } from '../pages/LandingPage';
+import { StudentDashboard } from '../pages/StudentDashboard';
 
 export const AppRoutes: React.FC = () => {
-  return <LandingPage />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/student-dashboard" element={<StudentDashboard />} />
+      </Routes>
+    </BrowserRouter>
+  );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Briefcase, 
   GraduationCap, 
@@ -100,11 +101,13 @@ export const LandingPage: React.FC = () => {
     </button>
 
     <div className="absolute top-full left-0 mt-2 w-60 bg-slate-900 border border-slate-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-      <a href="#" className="block px-4 py-2 hover:bg-slate-800">Student Dashboard</a>
-      <a href="#" className="block px-4 py-2 hover:bg-slate-800">College Dashboard</a>
+     <Link
+      to="/student-dashboard"
+  className="block px-4 py-2 hover:bg-slate-800">Student Dashboard</Link>
+      <a href="#" className="block px-4 py-2 hover:bg-slate-800">Admin Dashboard</a>
       <a href="#" className="block px-4 py-2 hover:bg-slate-800">Recruiter Dashboard</a>
       <a href="#" className="block px-4 py-2 hover:bg-slate-800">Mentor Dashboard</a>
-      <a href="#" className="block px-4 py-2 hover:bg-slate-800">Admin Dashboard</a>
+      <a href="#" className="block px-4 py-2 hover:bg-slate-800">College Dashboard</a>
     </div>
   </div>
 </nav>
