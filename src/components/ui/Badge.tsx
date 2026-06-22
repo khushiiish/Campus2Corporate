@@ -1,6 +1,6 @@
 import React from 'react';
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {}
+export type BadgeProps = React.HTMLAttributes<HTMLSpanElement>;
 
 export const Badge: React.FC<BadgeProps> = ({ children, ...props }) => {
   return (
