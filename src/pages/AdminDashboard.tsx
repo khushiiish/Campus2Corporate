@@ -22,7 +22,15 @@ type IconName =
   | 'sparkles'
   | 'target'
   | 'user-check'
-  | 'users';
+  | 'users'
+  | 'ai-brain'
+  | 'placement'
+  | 'resume'
+  | 'interview'
+  | 'risk'
+  | 'campus'
+  | 'automation'
+  | 'monitor';
 
 interface DashboardIconProps {
   name: IconName;
@@ -183,6 +191,70 @@ const DashboardIcon: React.FC<DashboardIconProps> = ({ name, className }) => {
         <path d="M19 12h3" />
       </>
     ),
+    'ai-brain': (
+      <>
+        <circle cx="12" cy="12" r="6" />
+        <path d="M8 8.5h8" />
+        <path d="M8 15.5h8" />
+        <path d="M12 6v12" />
+        <path d="M6 12h12" />
+      </>
+    ),
+    placement: (
+      <>
+        <path d="M12 4v12" />
+        <path d="m8 12 4-4 4 4" />
+        <path d="M8 20h8" />
+      </>
+    ),
+    resume: (
+      <>
+        <path d="M6 3h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" />
+        <path d="M14 3v5h5" />
+        <path d="M8 13h8" />
+        <path d="M8 17h6" />
+      </>
+    ),
+    interview: (
+      <>
+        <path d="M6 7h12v8H9l-3 3V7Z" />
+        <path d="M8 5h8" />
+      </>
+    ),
+    risk: (
+      <>
+        <path d="M12 3 3 19h18L12 3Z" />
+        <path d="M12 9v4" />
+        <path d="M12 17h.01" />
+      </>
+    ),
+    campus: (
+      <>
+        <path d="M4 21V9l8-5 8 5v12" />
+        <path d="M12 3v18" />
+        <path d="M8 12h8" />
+      </>
+    ),
+    automation: (
+      <>
+        <circle cx="12" cy="12" r="5" />
+        <path d="M12 2v2" />
+        <path d="M12 20v2" />
+        <path d="M2 12h2" />
+        <path d="M20 12h2" />
+        <path d="m4.9 4.9 1.4 1.4" />
+        <path d="m17.7 17.7 1.4 1.4" />
+        <path d="m4.9 19.1 1.4-1.4" />
+        <path d="m17.7 6.3 1.4-1.4" />
+      </>
+    ),
+    monitor: (
+      <>
+        <rect x="4" y="5" width="16" height="12" rx="2" />
+        <path d="M8 21h8" />
+        <path d="M12 17v4" />
+      </>
+    ),
     'user-check': (
       <>
         <path d="M15 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
@@ -233,22 +305,59 @@ const AdminLogo: React.FC = () => (
   </div>
 );
 
-const sidebarItems = [
-  { label: 'Command Center', icon: 'dashboard', active: true },
-  { label: 'User Roles', icon: 'users' },
-  { label: 'Approvals', icon: 'user-check' },
-  { label: 'Integrations', icon: 'plug' },
-  { label: 'Audit Logs', icon: 'file' },
-  { label: 'Security', icon: 'shield' },
-] satisfies Array<{ label: string; icon: IconName; active?: boolean }>;
-
+const sidebarItems: Array<{ label: string; icon: IconName; active?: boolean }> = [
+  {
+    label: 'AI Command Center',
+    icon: 'ai-brain',
+    active: true,
+  },
+  {
+    label: 'Placement Intelligence',
+    icon: 'placement',
+  },
+  {
+    label: 'Student Analytics',
+    icon: 'users',
+  },
+  {
+    label: 'Recruiter Intelligence',
+    icon: 'briefcase',
+  },
+  {
+    label: 'Resume Intelligence',
+    icon: 'resume',
+  },
+  {
+    label: 'Interview Analytics',
+    icon: 'interview',
+  },
+  {
+    label: 'Risk Monitoring',
+    icon: 'risk',
+  },
+  {
+    label: 'Campus Insights',
+    icon: 'campus',
+  },
+  {
+    label: 'AI Automation',
+    icon: 'automation',
+  },
+  {
+    label: 'Security Center',
+    icon: 'shield',
+  },
+  {
+    label: 'System Health',
+    icon: 'monitor',
+  },
+];
 const stats = [
-  { label: 'Total users', value: '24,918', change: '+14.8%', icon: 'users', color: 'blue' },
-  { label: 'Active institutions', value: '126', change: '+8 added', icon: 'building', color: 'emerald' },
-  { label: 'Open placement drives', value: '74', change: '19 urgent', icon: 'briefcase', color: 'amber' },
-  { label: 'System health', value: '99.98%', change: 'Stable', icon: 'activity', color: 'violet' },
-] satisfies Array<{ label: string; value: string; change: string; icon: IconName; color: 'blue' | 'emerald' | 'amber' | 'violet' }>;
-
+  { label: 'Student signals', value: '18.4k', change: '+14%', icon: 'users', color: 'blue' },
+  { label: 'Placement rate', value: '89%', change: '+3.1%', icon: 'chart', color: 'emerald' },
+  { label: 'Active drives', value: '132', change: '+12%', icon: 'briefcase', color: 'violet' },
+  { label: 'Risk alerts', value: '23', change: '-8%', icon: 'shield', color: 'amber' },
+] satisfies Array<{ label: string; value: string; change: string; icon: IconName; color: keyof typeof colorMap }>;
 const approvalQueue = [
   { title: 'Recruiter verification', owner: 'Enterprise team', items: 18, sla: '4h SLA', tone: 'High' },
   { title: 'College onboarding', owner: 'Institution success', items: 7, sla: '1d SLA', tone: 'Medium' },
@@ -263,7 +372,7 @@ const roleMatrix = [
   { role: 'Mentors', total: '382', active: '64%', access: 'Reviews, sessions, feedback', risk: 'Normal' },
 ];
 
-const integrations = [
+const integrations: Array<{ name: string; status: string; detail: string; icon: IconName }> = [
   { name: 'ATS Sync', status: 'Connected', detail: 'Greenhouse, Lever, Workday', icon: 'plug' },
   { name: 'AI Scoring Engine', status: 'Live', detail: 'Resume, mock interview, skills', icon: 'sparkles' },
   { name: 'Data Warehouse', status: 'Healthy', detail: 'Nightly placement analytics', icon: 'database' },
