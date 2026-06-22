@@ -219,25 +219,29 @@ export const LandingPage: React.FC = () => {
                 <ChevronRight className="w-3.5 h-3.5 rotate-90 text-slate-400 group-hover:text-blue-600 transition-transform duration-200" />
               </button>
 
-              <div className="absolute top-full left-0 mt-1 w-64 bg-slate-905 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 py-2.5">
-                <Link to="/student-dashboard" className="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-semibold">
-                  Student Dashboard
-                </Link>
-                <Link to="/college-dashboard" className="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-semibold">
-                  College Dashboard
-                </Link>
-                <Link to="/recruiter-dashboard" className="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-semibold">
-                  Recruiter Dashboard
-                </Link>
-                <Link to="/mentor-dashboard" className="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-semibold">
-                  Mentor Dashboard
-                </Link>
-                <Link to="/admin-dashboard" className="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-semibold">
-                  Admin Dashboard
-                </Link>
-              </div>
-            </div>
-          </nav>
+    <div className="absolute top-full left-0 mt-2 w-60 bg-slate-900 border border-slate-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+    
+
+<Link
+  to="/student-dashboard"
+  className="block px-4 py-2 hover:bg-slate-800">
+  Student Dashboard
+</Link>
+      <Link to="/college-dashboard" className="block px-4 py-2 hover:bg-slate-800">
+        College Dashboard
+      </Link>
+      <Link to="/recruiter-dashboard" className="block px-4 py-2 hover:bg-slate-800">
+        Recruiter Dashboard
+      </Link>
+      <Link to="/mentor-dashboard" className="block px-4 py-2 hover:bg-slate-800">
+        Mentor Dashboard
+      </Link>
+      <Link to="/admin-dashboard" className="block px-4 py-2 hover:bg-slate-800">
+        Admin Dashboard
+      </Link>
+    </div>
+  </div>
+</nav>
 
           <div className="flex items-center space-x-5">
             <button className="hidden sm:inline-flex text-sm text-slate-600 hover:text-slate-900 transition-colors font-semibold cursor-pointer">

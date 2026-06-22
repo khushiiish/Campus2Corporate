@@ -1,15 +1,80 @@
 import React from 'react';
 import { Brain, UserCheck, BookOpen, Users, Cpu, Calendar, Award } from 'lucide-react';
+import react, {useState} from 'react';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+const data = [
+  { month: "Jan", score: 65 },
+  { month: "Feb", score: 72 },
+  { month: "Mar", score: 78 },
+  { month: "Apr", score: 85 },
+  { month: "May", score: 90 },
+];
 
 export const StudentDashboard: React.FC = () => {
+ const [showDropdown, setShowDropdown] = useState(false);
  
   return (
     <div className="p-6">
 
       {/* Dashboard Title */}
-      <h1 className="text-2xl font-bold mb-6 text-center">
-        Student Dashboard
-      </h1>
+    
+
+
+<div className="relative mb-6">
+  <h1 className="text-2xl font-bold text-center">
+    Student Dashboard
+  </h1>
+
+  {/* Profile Section */}
+  <div className="absolute right-0 top-1/2 -translate-y-1/2">
+    
+    <button
+      onClick={() => setShowDropdown(!showDropdown)}
+      className="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center font-bold text-lg text-white"
+    >
+      YS
+    </button>
+
+    {showDropdown && (
+      <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border z-[9999]">  
+        
+        <div className="p-3 border-b">
+          <h3 className="font-semibold">Yuvraj Singh</h3>
+          <p className="text-sm text-gray-500">
+            B.Tech CSE - Final Year
+          </p>
+        </div>
+
+        <button className="w-full text-left px-4 py-3 hover:bg-gray-100">
+          My Profile
+        </button>
+
+        <button className="w-full text-left px-4 py-3 hover:bg-gray-100">
+          My Courses
+        </button>
+
+        <button className="w-full text-left px-4 py-3 hover:bg-gray-100">
+          Certificates
+        </button>
+
+        <button className="w-full text-left px-4 py-3 hover:bg-gray-100">
+          Settings
+        </button>
+
+        
+
+      </div>
+    )}
+  </div>
+</div>
 
       {/* Welcome Message */}
       <div className="bg-white shadow rounded-lg p-4 mb-6">
@@ -21,6 +86,59 @@ export const StudentDashboard: React.FC = () => {
           Manage your courses, registrations, profile and learning progress.
         </p>
       </div>
+    {/* // registration overview + performance graph */}
+
+       <div className="bg-white shadow rounded-xl p-4 mt-6 mb-8">
+
+          <h2 className="text-lg font-semibold mb-4">
+            Registration Overview
+          </h2>
+
+          <div className="grid grid-cols-2 gap-4">
+
+            <div className="bg-blue-100 p-4 rounded-lg">
+              <h3 className="font-semibold">
+                Registered Courses
+              </h3>
+
+              <p className="text-2xl font-bold">
+                5
+              </p>
+            </div>
+
+            <div className="bg-green-100 p-4 rounded-lg">
+              <h3 className="font-semibold">
+                Completed
+              </h3>
+
+              <p className="text-2xl font-bold">
+                2
+              </p>
+            </div>
+
+            <div className="bg-yellow-100 p-4 rounded-lg">
+              <h3 className="font-semibold">
+                Pending
+              </h3>
+
+              <p className="text-2xl font-bold">
+                3
+              </p>
+            </div>
+
+            <div className="bg-purple-100 p-4 rounded-lg">
+              <h3 className="font-semibold">
+                Certificates
+              </h3>
+
+              <p className="text-2xl font-bold">
+                1
+              </p>
+            </div>
+
+          </div>
+
+        </div>
 
       {/* Profile + Registration Overview */}
       <div className="grid grid-cols-2 gap-6 mb-6">
@@ -92,58 +210,31 @@ export const StudentDashboard: React.FC = () => {
 
 </div>
 
-        {/* Registration Overview */}
-        <div className="bg-white shadow rounded-xl p-4">
 
-          <h2 className="text-lg font-semibold mb-4">
-            Registration Overview
-          </h2>
+{/* /// graph */}
 
-          <div className="grid grid-cols-2 gap-4">
+    <div className="bg-white rounded-xl p-6">
+      <h2 className="text-lg font-semibold mb-4 ">
+        Performance Overview
+      </h2>
 
-            <div className="bg-blue-100 p-4 rounded-lg">
-              <h3 className="font-semibold">
-                Registered Courses
-              </h3>
+      <ResponsiveContainer width="100%" height={250}> 
+        <LineChart data={data}>
+          <XAxis dataKey="month" />
+          <YAxis />
+          <Tooltip />
+          <Line
+            type="monotone"
+            dataKey="score"
+            stroke="#2563eb"
+            strokeWidth={2}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+      
 
-              <p className="text-2xl font-bold">
-                5
-              </p>
-            </div>
-
-            <div className="bg-green-100 p-4 rounded-lg">
-              <h3 className="font-semibold">
-                Completed
-              </h3>
-
-              <p className="text-2xl font-bold">
-                2
-              </p>
-            </div>
-
-            <div className="bg-yellow-100 p-4 rounded-lg">
-              <h3 className="font-semibold">
-                Pending
-              </h3>
-
-              <p className="text-2xl font-bold">
-                3
-              </p>
-            </div>
-
-            <div className="bg-purple-100 p-4 rounded-lg">
-              <h3 className="font-semibold">
-                Certificates
-              </h3>
-
-              <p className="text-2xl font-bold">
-                1
-              </p>
-            </div>
-
-          </div>
-
-        </div>
+      
 
       </div>
 
@@ -221,7 +312,7 @@ export const StudentDashboard: React.FC = () => {
         Roadmap to Placement
       </h1>
         
-             <div className="hidden lg:block absolute top-[40px] left-[5%] right-[5%] h-0.5 bg-slate-200"></div>
+             <div className="hidden lg:block absolute top-10 left-[5%] right-[5%] h-0.5 bg-slate-200"></div>
              
              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-6">
                
@@ -234,7 +325,7 @@ export const StudentDashboard: React.FC = () => {
                  { step: '06', title: 'Interview', desc: 'Sync calendars and scheduling.', icon: Calendar },
                  { step: '07', title: 'Placement', desc: 'Final contract signing and onboard.', icon: Award }
                ].map((item, idx) => (
-                 <div key={idx} className="relative flex flex-col items-center text-center bg-white border border-slate-200 hover:border-slate-300 rounded-xl p-5 hover:translate-y-[-4px] transition-all shadow-sm hover:shadow-md">
+                 <div key={idx} className="relative flex flex-col items-centered text-center bg-white border border-slate-200 hover:border-slate-300 rounded-xl p-5 hover:-translate-y-1 transition-all shadow-sm hover:shadow-md">
                    <div className="w-12 h-12 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-blue-600 shadow-sm relative z-10">
                      <item.icon className="w-5 h-5" />
                      <span className="absolute -top-1 -right-1 text-[9px] bg-blue-50 border border-blue-100 text-blue-700 font-mono w-4.5 h-4.5 rounded-full flex items-center justify-center font-bold shadow-sm">
@@ -250,6 +341,151 @@ export const StudentDashboard: React.FC = () => {
  
              </div>
            </div>
+           
+     <div className="bg-white rounded-2xl shadow-sm p-6 mt-8">
+  <h2 className="text-2xl font-semibold mb-6">
+    Upcoming Activities
+  </h2>
+
+  <div className="space-y-4">
+
+    <div className="flex justify-between items-center border-b pb-4">
+      <div>
+        <h3 className="font-semibold">
+          React Assignment Submission
+        </h3>
+        <p className="text-gray-500 text-sm">
+          Module 3 Project Submission
+        </p>
+      </div>
+
+      <span className="text-red-500 font-medium">
+        Due: 25 Jun
+      </span>
+    </div>
+
+    <div className="flex justify-between items-center border-b pb-4">
+      <div>
+        <h3 className="font-semibold">
+          Aptitude Assessment
+        </h3>
+        <p className="text-gray-500 text-sm">
+          Placement Preparation Test
+        </p>
+      </div>
+
+      <span className="text-orange-500 font-medium">
+        28 Jun
+      </span>
+    </div>
+
+    <div className="flex justify-between items-center border-b pb-4">
+      <div>
+        <h3 className="font-semibold">
+          Mentor Session
+        </h3>
+        <p className="text-gray-500 text-sm">
+          One-on-One Career Guidance
+        </p>
+      </div>
+
+      <span className="text-blue-500 font-medium">
+        30 Jun
+      </span>
+    </div>
+
+    <div className="flex justify-between items-center">
+      <div>
+        <h3 className="font-semibold">
+          Mock Interview
+        </h3>
+        <p className="text-gray-500 text-sm">
+          Technical Interview Practice
+        </p>
+      </div>
+
+      <span className="text-green-500 font-medium">
+        05 Jul
+      </span>
+    </div>
+
+  </div>
+</div>
+
+           
+        <div className="bg-white rounded-2xl shadow-sm p-6 mt-8">
+  <h2 className="text-2xl font-semibold mb-6">
+    Skill Progress
+  </h2>
+
+  <div className="space-y-5">
+
+    {/* React */}
+    <div>
+      <div className="flex justify-between mb-2">
+        <span className="font-medium">React Development</span>
+        <span className="font-semibold">70%</span>
+      </div>
+
+      <div className="w-full bg-gray-200 rounded-full h-3">
+        <div
+          className="bg-blue-600 h-3 rounded-full"
+          style={{ width: "70%" }}
+        />
+      </div>
+    </div>
+
+    {/* Python */}
+    <div>
+      <div className="flex justify-between mb-2">
+        <span className="font-medium">Python Programming</span>
+        <span className="font-semibold">45%</span>
+      </div>
+
+      <div className="w-full bg-gray-200 rounded-full h-3">
+        <div
+          className="bg-green-600 h-3 rounded-full"
+          style={{ width: "45%" }}
+        />
+      </div>
+    </div>
+
+    {/* DSA */}
+    <div>
+      <div className="flex justify-between mb-2">
+        <span className="font-medium">
+          Data Structures & Algorithms
+        </span>
+        <span className="font-semibold">60%</span>
+      </div>
+
+      <div className="w-full bg-gray-200 rounded-full h-3">
+        <div
+          className="bg-purple-600 h-3 rounded-full"
+          style={{ width: "60%" }}
+        />
+      </div>
+    </div>
+
+    {/* Aptitude */}
+    <div>
+      <div className="flex justify-between mb-2">
+        <span className="font-medium">Aptitude Training</span>
+        <span className="font-semibold">85%</span>
+      </div>
+
+      <div className="w-full bg-gray-200 rounded-full h-3">
+        <div
+          className="bg-orange-500 h-3 rounded-full"
+          style={{ width: "85%" }}
+        />
+      </div>
+    </div>
+
+  </div>
+</div>
+  
+
     
     </div>
   );

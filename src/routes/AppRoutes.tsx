@@ -8,6 +8,10 @@ export const AppRoutes: React.FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+<<<<<<< HEAD
+=======
+        <Route path="/StudentDashboard" element={<StudentDashboard />} />
+>>>>>>> d300c93 (khushboo)
       </Routes>
     </BrowserRouter>
   );
