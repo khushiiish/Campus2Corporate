@@ -612,13 +612,14 @@ export const AdminDashboard = () => {
                       <Icon name={s.up ? "arrow-up" : "arrow-down"} className="h-3 w-3" />
                       {s.change}
                     </span>
+          
                   </div>
                   <p className="mt-4 text-[11px] font-bold uppercase tracking-wider text-slate-400">{s.label}</p>
                   <p className="mt-0.5 text-3xl font-black tracking-tight text-slate-900">{s.value}</p>
                 </article>
               ))}
             </div>
-
+                
             {/* AI Insight + Risk row */}
             <div className="grid gap-4 xl:grid-cols-2">
               <AIInsightCard />
