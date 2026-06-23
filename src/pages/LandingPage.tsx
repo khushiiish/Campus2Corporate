@@ -229,7 +229,7 @@ export const LandingPage: React.FC = () => {
                 <Link to="/recruiter-dashboard" className="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-semibold">
                   Recruiter Dashboard
                 </Link>
-                <Link to="/mentor-dashboard" className="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-semibold">
+                <Link to="/mentor-dashboard"  className="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-semibold">
                   Mentor Dashboard
                 </Link>
                 <Link to="/admin-dashboard" className="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-semibold">
