@@ -100,14 +100,14 @@ const ScrollReveal: React.FC<{ children: React.ReactNode; className?: string; id
   );
 };
 
-const HERO_PHRASES = ["Empower Students", "Accelerate Hiring", "Scale Placement"];
+const HERO_PHRASES = ["Empower Institutional Talent", "Streamline Enterprise Recruitment", "Scale Corporate Placement"];
 
 const TICKER_EVENTS = [
-  { text: "Student from DTU cleared Advanced Logic assessment", icon: "🟢" },
-  { text: "Amazon Recruiter updated 3 job pipelines", icon: "💼" },
-  { text: "Candidate from NIT Trichy unlocked Frontend Architecture badge", icon: "🏆" },
-  { text: "Placement cell synced 450 verified student profiles at Delhi Tech", icon: "⚡" },
-  { text: "Mentor Sarah Jenkins approved 3 resume reviews", icon: "🎓" }
+  { text: "Candidate from DTU cleared advanced logic evaluation", icon: "🟢" },
+  { text: "Talent partners updated 14 strategic recruitment pipelines", icon: "💼" },
+  { text: "Candidate from NIT Trichy verified system architecture credentials", icon: "🏆" },
+  { text: "Integration sync completed for 450 validated institutional profiles", icon: "⚡" },
+  { text: "Advisory board member completed 3 comprehensive portfolio reviews", icon: "🎓" }
 ];
 
 export const LandingPage: React.FC = () => {
@@ -151,12 +151,12 @@ export const LandingPage: React.FC = () => {
   }, []);
 
   const stakeholders = [
-    { id: 'student', name: 'Student', desc: 'Builds skills, takes assessments, and matches with ideal corporate opportunities.', color: 'from-blue-500 to-cyan-400' },
-    { id: 'college', name: 'College', desc: 'Monitors student performance, schedules drives, and gains real-time readiness analytics.', color: 'from-purple-500 to-indigo-400' },
-    { id: 'mentor', name: 'Mentor', desc: 'Provides industry-relevant feedback, reviews mock interviews, and guides career roadmaps.', color: 'from-pink-500 to-rose-400' },
-    { id: 'recruiter', name: 'Recruiter', desc: 'Finds verified candidates with exact matching skills, reducing sourcing overhead.', color: 'from-emerald-500 to-teal-400' },
-    { id: 'company', name: 'Company', desc: 'Builds structured talent pipelines directly through campus engagement campaigns.', color: 'from-amber-500 to-orange-400' },
-    { id: 'admin', name: 'Admin', desc: 'Orchestrates systemic parameters, manages integrations, and audits platform safety.', color: 'from-gray-500 to-slate-400' },
+    { id: 'student', name: 'Candidates', desc: 'Manage professional development, construct validated profiles, and match directly with premier enterprise roles.', color: 'from-blue-500 to-cyan-400' },
+    { id: 'college', name: 'Institutions', desc: 'Aggregate cohort readiness analytics, evaluate student performance, and streamline corporate placement drives.', color: 'from-purple-500 to-indigo-400' },
+    { id: 'mentor', name: 'Advisors', desc: 'Conduct structured mock assessments, deliver portfolio evaluations, and certify readiness scores.', color: 'from-pink-500 to-rose-400' },
+    { id: 'recruiter', name: 'Talent Acquisition', desc: 'Filter pre-assessed pipelines with verified credentials to accelerate selection efficiency.', color: 'from-emerald-500 to-teal-400' },
+    { id: 'company', name: 'Enterprise Partners', desc: 'Establish structured academic pipelines and align long-term recruitment strategies.', color: 'from-amber-500 to-orange-400' },
+    { id: 'admin', name: 'Administrators', desc: 'Audit system parameters, manage ecosystem permissions, and ensure security compliance.', color: 'from-gray-500 to-slate-400' },
   ];
 
   return (
@@ -219,29 +219,25 @@ export const LandingPage: React.FC = () => {
                 <ChevronRight className="w-3.5 h-3.5 rotate-90 text-slate-400 group-hover:text-blue-600 transition-transform duration-200" />
               </button>
 
-    <div className="absolute top-full left-0 mt-2 w-60 bg-slate-900 border border-slate-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-    
-
-<Link
-  to="/student-dashboard"
-  className="block px-4 py-2 hover:bg-slate-800">
-  Student Dashboard
-</Link>
-      <Link to="/college-dashboard" className="block px-4 py-2 hover:bg-slate-800">
-        College Dashboard
-      </Link>
-      <Link to="/recruiter-dashboard" className="block px-4 py-2 hover:bg-slate-800">
-        Recruiter Dashboard
-      </Link>
-      <Link to="/mentor-dashboard" className="block px-4 py-2 hover:bg-slate-800">
-        Mentor Dashboard
-      </Link>
-      <Link to="/admin-dashboard" className="block px-4 py-2 hover:bg-slate-800">
-        Admin Dashboard
-      </Link>
-    </div>
-  </div>
-</nav>
+              <div className="absolute top-full left-0 mt-1 w-64 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 py-2.5">
+                <Link to="/student-dashboard" className="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-semibold">
+                  Student Dashboard
+                </Link>
+                <Link to="/college-dashboard" className="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-semibold">
+                  College Dashboard
+                </Link>
+                <Link to="/recruiter-dashboard" className="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-semibold">
+                  Recruiter Dashboard
+                </Link>
+                <Link to="/mentor-dashboard"  className="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-semibold">
+                  Mentor Dashboard
+                </Link>
+                <Link to="/admin-dashboard" className="block px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-semibold">
+                  Admin Dashboard
+                </Link>
+              </div>
+            </div>
+          </nav>
 
           <div className="flex items-center space-x-5">
             <button className="hidden sm:inline-flex text-sm text-slate-600 hover:text-slate-900 transition-colors font-semibold cursor-pointer">
@@ -251,7 +247,7 @@ export const LandingPage: React.FC = () => {
               href="#cta"
               className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-slate-900 text-sm font-semibold text-white hover:bg-slate-800 hover:shadow-lg transition-all duration-300"
             >
-              Demo Access
+              Request Demo
             </a>
           </div>
         </div>
@@ -264,7 +260,7 @@ export const LandingPage: React.FC = () => {
           <div className="flex flex-col space-y-8 text-center sm:text-left items-center sm:items-start">
             <div className="inline-flex items-center space-x-2 px-3.5 py-2 rounded-full bg-blue-50/60 border border-blue-100/80 text-xs font-bold text-blue-700 shadow-sm animate-fade-in backdrop-blur-sm">
               <LogoSVG className="h-4.5 w-auto" iconColor="text-blue-600" textColor="text-blue-700" />
-              <span className="border-l border-blue-200/80 pl-2">Next-Gen Employability Ecosystem</span>
+              <span className="border-l border-blue-200/80 pl-2 uppercase tracking-wider text-[9px]">Institutional Career Architecture</span>
             </div>
             
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter text-slate-900 leading-[1.1] max-w-3xl">
@@ -279,22 +275,22 @@ export const LandingPage: React.FC = () => {
             </h1>
             
             <p className="text-lg sm:text-xl text-slate-500 leading-relaxed max-w-2xl font-medium">
-              An AI-powered employability ecosystem connecting students, colleges, mentors, recruiters, and companies through learning, assessment, mentorship, hiring, and placement.
+              A unified enterprise talent architecture connecting academic institutions, mentors, and corporate partners to orchestrate career readiness and placement at scale.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 pt-4 w-full sm:w-auto">
               <a 
                 href="#cta"
-                className="group inline-flex items-center justify-center px-7 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-650 hover:from-blue-700 hover:to-indigo-700 text-base font-semibold text-white shadow-lg shadow-blue-500/15 hover:shadow-blue-500/25 hover:-translate-y-0.5 transition-all duration-300"
+                className="group inline-flex items-center justify-center px-7 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-base font-semibold text-white shadow-lg shadow-blue-500/15 hover:shadow-blue-500/25 hover:-translate-y-0.5 transition-all duration-300"
               >
-                Get Started
+                Initiate Integration
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </a>
               <a 
                 href="#solution"
                 className="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-white border border-slate-200 hover:border-slate-300 text-base font-semibold text-slate-700 hover:bg-slate-50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shadow-sm"
               >
-                Explore Platform
+                Review Institutional Solutions
               </a>
             </div>
 
@@ -302,15 +298,15 @@ export const LandingPage: React.FC = () => {
             <div className="grid grid-cols-3 gap-8 pt-12 border-t border-slate-200/80 w-full max-w-2xl">
               <div>
                 <span className="block text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">98%</span>
-                <span className="block text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1.5">ATS Match Rate</span>
+                <span className="block text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1.5">Competency Match Rate</span>
               </div>
               <div>
                 <span className="block text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">10x</span>
-                <span className="block text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1.5">Faster Sourcing</span>
+                <span className="block text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1.5">Recruitment Efficiency</span>
               </div>
               <div>
                 <span className="block text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">100%</span>
-                <span className="block text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1.5">Verified Profiles</span>
+                <span className="block text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1.5">Validated Credentials</span>
               </div>
             </div>
           </div>
@@ -341,8 +337,8 @@ export const LandingPage: React.FC = () => {
       <ScrollReveal className="relative z-10 py-24 bg-slate-50/50 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-xs font-bold text-blue-606 text-blue-600 uppercase tracking-widest">Multi-Stakeholder Architecture</h2>
-            <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3 tracking-tight">Connecting the Entire Employability Ecosystem</p>
+            <h2 className="text-xs font-bold text-blue-600 uppercase tracking-widest">Unified Stakeholder Ecosystem</h2>
+            <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3 tracking-tight">Orchestrating the Institutional Placement Lifecycle</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
@@ -352,9 +348,9 @@ export const LandingPage: React.FC = () => {
               <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 mb-5 group-hover:bg-blue-600 group-hover:text-white group-hover:scale-110 transition-all duration-300 shadow-sm">
                 <GraduationCap className="w-5.5 h-5.5" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 mb-2">Students</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-2">{stakeholders[0].name}</h3>
               <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                Learn, Grow & Get Placed. Utilize AI maps to level up skills, build verified profiles, and lock down top roles.
+                {stakeholders[0].desc}
               </p>
             </div>
 
@@ -363,9 +359,9 @@ export const LandingPage: React.FC = () => {
               <div className="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 mb-5 group-hover:bg-purple-600 group-hover:text-white group-hover:scale-110 transition-all duration-300 shadow-sm">
                 <Building className="w-5.5 h-5.5" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 mb-2">Colleges</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-2">{stakeholders[1].name}</h3>
               <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                Track Performance & Improve Outcomes. Aggregate student readiness scores and streamline placement drives.
+                {stakeholders[1].desc}
               </p>
             </div>
 
@@ -374,9 +370,9 @@ export const LandingPage: React.FC = () => {
               <div className="w-11 h-11 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-600 mb-5 group-hover:bg-cyan-600 group-hover:text-white group-hover:scale-110 transition-all duration-300 shadow-sm">
                 <Briefcase className="w-5.5 h-5.5" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 mb-2">Recruiters</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-2">{stakeholders[3].name}</h3>
               <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                Discover Verified Talent. Shortlist pre-assessed candidates with transparent background verification scores.
+                {stakeholders[3].desc}
               </p>
             </div>
 
@@ -385,9 +381,9 @@ export const LandingPage: React.FC = () => {
               <div className="w-11 h-11 rounded-xl bg-pink-50 flex items-center justify-center text-pink-600 mb-5 group-hover:bg-pink-600 group-hover:text-white group-hover:scale-110 transition-all duration-300 shadow-sm">
                 <Users className="w-5.5 h-5.5" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 mb-2">Mentors</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-2">{stakeholders[2].name}</h3>
               <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                Guide Future Professionals. Review mock coding interviews, guide portfolios, and earn industry credits.
+                {stakeholders[2].desc}
               </p>
             </div>
 
@@ -396,9 +392,9 @@ export const LandingPage: React.FC = () => {
               <div className="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 mb-5 group-hover:bg-amber-600 group-hover:text-white group-hover:scale-110 transition-all duration-300 shadow-sm">
                 <Target className="w-5.5 h-5.5" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 mb-2">Companies</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-2">{stakeholders[4].name}</h3>
               <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                Build Future Workforce. Anchor long-term campus programs, brand internships, and target matching cohorts.
+                {stakeholders[4].desc}
               </p>
             </div>
 
@@ -410,13 +406,13 @@ export const LandingPage: React.FC = () => {
       <ScrollReveal id="problem" className="relative z-10 py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <span className="px-3.5 py-1.5 rounded-full bg-red-50 border border-red-100 text-xs font-bold text-red-700 shadow-sm">
-            The Industry Bottleneck
+            Systemic Placement Friction
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mt-5 tracking-tight leading-tight">
-            The Gap Between Campus and Corporate Is Real
+            Addressing the Structural Gap in Talent Readiness
           </h2>
-          <p className="text-slate-505 text-slate-500 mt-4 text-base font-medium leading-relaxed">
-            Students struggle with direction, while hiring managers are buried under unverified noise. Current processes are fragmented.
+          <p className="text-slate-500 mt-4 text-base font-medium leading-relaxed">
+            Hiring processes remain fragmented, causing candidates to lack clear corporate mapping while recruiters are inundated with unverified portfolios.
           </p>
         </div>
 
@@ -425,40 +421,40 @@ export const LandingPage: React.FC = () => {
           {/* Problem 1 */}
           <div className="bg-white border border-slate-200/70 rounded-2xl p-6 relative overflow-hidden group shadow-sm hover:shadow-xl hover:border-red-200 transition-all duration-350 hover:-translate-y-1">
             <div className="absolute top-0 right-0 w-36 h-36 bg-red-50/50 rounded-full blur-xl pointer-events-none group-hover:bg-red-100/50 transition-all duration-305"></div>
-            <div className="text-red-700 text-xs font-mono font-black tracking-widest mb-4">01 / DISORIENTATION</div>
-            <h3 className="text-lg font-bold text-slate-905 text-slate-900 mb-2.5">Students lack career direction</h3>
+            <div className="text-red-700 text-xs font-mono font-black tracking-widest mb-4">01 / ARCHITECTURAL MISALIGNMENT</div>
+            <h3 className="text-lg font-bold text-slate-900 mb-2.5">Curriculum Misalignment</h3>
             <p className="text-xs text-slate-500 leading-relaxed font-medium">
-              Curriculums lack modular alignment to dynamic market profiles, leading graduates to apply blindly to random roles.
+              Traditional academic curriculum lacks modular mapping to current enterprise engineering requirements, leading to unfocused application strategies.
             </p>
           </div>
 
           {/* Problem 2 */}
           <div className="bg-white border border-slate-200/70 rounded-2xl p-6 relative overflow-hidden group shadow-sm hover:shadow-xl hover:border-red-200 transition-all duration-350 hover:-translate-y-1">
             <div className="absolute top-0 right-0 w-36 h-36 bg-red-50/50 rounded-full blur-xl pointer-events-none group-hover:bg-red-100/50 transition-all duration-305"></div>
-            <div className="text-red-700 text-xs font-mono font-black tracking-widest mb-4">02 / DARK PIPELINE</div>
-            <h3 className="text-lg font-bold text-slate-905 text-slate-900 mb-2.5">Colleges lack placement visibility</h3>
+            <div className="text-red-700 text-xs font-mono font-black tracking-widest mb-4">02 / ANALYTICS DEFICIT</div>
+            <h3 className="text-lg font-bold text-slate-900 mb-2.5">Information Asymmetry</h3>
             <p className="text-xs text-slate-500 leading-relaxed font-medium">
-              Administrators lack unified dashboards to monitor readiness analytics or audit manual student progression metrics.
+              Institutional leaders lack real-time capability insights and dashboard analytics to monitor candidate progress or drive placement velocity.
             </p>
           </div>
 
           {/* Problem 3 */}
           <div className="bg-white border border-slate-200/70 rounded-2xl p-6 relative overflow-hidden group shadow-sm hover:shadow-xl hover:border-red-200 transition-all duration-350 hover:-translate-y-1">
             <div className="absolute top-0 right-0 w-36 h-36 bg-red-50/50 rounded-full blur-xl pointer-events-none group-hover:bg-red-100/50 transition-all duration-305"></div>
-            <div className="text-red-700 text-xs font-mono font-black tracking-widest mb-4">03 / NOISE OVERHEAD</div>
-            <h3 className="text-lg font-bold text-slate-905 text-slate-900 mb-2.5">Recruiters waste time screening</h3>
+            <div className="text-red-700 text-xs font-mono font-black tracking-widest mb-4">03 / SOURCING INEFFICIENCY</div>
+            <h3 className="text-lg font-bold text-slate-900 mb-2.5">Unverified Portfolio Noise</h3>
             <p className="text-xs text-slate-500 leading-relaxed font-medium">
-              Recruiters spend up to 70% of sourcing time weeding out candidate resumes with unverified credentials and fake skills.
+              Corporate sourcing operations spend substantial hours manual-filtering portfolios filled with unverified skill claims and credentials.
             </p>
           </div>
 
           {/* Problem 4 */}
           <div className="bg-white border border-slate-200/70 rounded-2xl p-6 relative overflow-hidden group shadow-sm hover:shadow-xl hover:border-red-200 transition-all duration-350 hover:-translate-y-1">
             <div className="absolute top-0 right-0 w-36 h-36 bg-red-50/50 rounded-full blur-xl pointer-events-none group-hover:bg-red-100/50 transition-all duration-305"></div>
-            <div className="text-red-700 text-xs font-mono font-black tracking-widest mb-4">04 / DEFICIT GAP</div>
-            <h3 className="text-lg font-bold text-slate-905 text-slate-900 mb-2.5">Companies face skill mismatch</h3>
+            <div className="text-red-700 text-xs font-mono font-black tracking-widest mb-4">04 / ONBOARDING OVERHEAD</div>
+            <h3 className="text-lg font-bold text-slate-900 mb-2.5">Post-Hire Productivity Gap</h3>
             <p className="text-xs text-slate-500 leading-relaxed font-medium">
-              New hires take months to onboard, incurring substantial post-hire training and cohort transition costs.
+              Sub-optimal talent alignment increases onboarding duration and requires extensive post-hire corrective learning plans.
             </p>
           </div>
 
@@ -469,32 +465,32 @@ export const LandingPage: React.FC = () => {
       <ScrollReveal id="solution" className="relative z-10 py-24 bg-slate-50/50 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-105 border-blue-100 text-xs font-bold text-blue-700 shadow-sm">
-              Integrated Solution
+            <span className="px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-xs font-bold text-blue-700 shadow-sm">
+              Integrated Platform Ecosystem
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mt-5 tracking-tight leading-tight">
-              One Platform. Complete Career Journey.
+              A Unified Pipeline from Enrollment to Placement
             </h2>
-            <p className="text-slate-505 text-slate-500 mt-4 text-base font-medium leading-relaxed">
-              C2C unifies the lifecycle from baseline assessment to final placement into a single digital ledger, aligning all parties.
+            <p className="text-slate-500 mt-4 text-base font-medium leading-relaxed">
+              Our platform maps the placement lifecycle into a single capability ledger, aligning candidates, colleges, and enterprise partners.
             </p>
           </div>
 
           {/* Solution Path Flow */}
           <div className="relative">
             {/* Connection line in background */}
-            <div className="hidden lg:block absolute top-[40px] left-[5%] right-[5%] h-0.5 bg-slate-200"></div>
+            <div className="hidden lg:block absolute top-[40px] left-[5%] right-[5%] h-0.5 bg-slate-200/80"></div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-6">
               
               {[
-                { step: '01', title: 'Profile Building', desc: 'Secure, verified portfolio credentials.', icon: UserCheck },
-                { step: '02', title: 'Skill Assessment', desc: 'AI proctored baseline tests.', icon: Brain },
-                { step: '03', title: 'Learning Roadmap', desc: 'AI-curated targeted content gaps.', icon: BookOpen },
-                { step: '04', title: 'Mentorship', desc: 'Mock trials & expert review logs.', icon: Users },
-                { step: '05', title: 'AI Matching', desc: 'Vector alignment to active roles.', icon: Cpu },
-                { step: '06', title: 'Interview', desc: 'Sync calendars and scheduling.', icon: Calendar },
-                { step: '07', title: 'Placement', desc: 'Final contract signing and onboard.', icon: Award }
+                { step: '01', title: 'Verified Portfolios', desc: 'Secure, validated credential trails.', icon: UserCheck },
+                { step: '02', title: 'Competency Audits', desc: 'Proctored technical assessments.', icon: Brain },
+                { step: '03', title: 'Adaptive Curriculum', desc: 'Targeted skill paths bridging gap logs.', icon: BookOpen },
+                { step: '04', title: 'Advisory Reviews', desc: 'Structured mock assessments.', icon: Users },
+                { step: '05', title: 'Vector Alignment', desc: 'Semantic matching to active roles.', icon: Cpu },
+                { step: '06', title: 'Interview Sync', desc: 'Coordinated scheduling & pipelines.', icon: Calendar },
+                { step: '07', title: 'Placement Closure', desc: 'Onboarding validation & metrics.', icon: Award }
               ].map((item, idx) => (
                 <div key={idx} className="relative flex flex-col items-center text-center bg-white border border-slate-200/80 hover:border-slate-350 hover:shadow-xl rounded-2xl p-5 hover:-translate-y-1 transition-all duration-300 shadow-sm group">
                   <div className="w-12 h-12 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-blue-600 shadow-sm relative z-10 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
@@ -519,13 +515,13 @@ export const LandingPage: React.FC = () => {
       <ScrollReveal id="features" className="relative z-10 py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:24px_24px] opacity-95">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <span className="px-3.5 py-1.5 rounded-full bg-cyan-50 border border-cyan-100 text-xs font-bold text-cyan-700 shadow-sm">
-            Platform Capabilities
+            Enterprise Placement Architecture
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mt-5 tracking-tight">
-            Engineered for Placement Excellence
+            Deploying Validated Competency at Scale
           </h2>
           <p className="text-slate-550 text-slate-500 mt-4 text-base font-medium leading-relaxed">
-            Structured into a high-performance grid, C2C offers robust tools configured to scale from college cohorts to global talent acquisition teams.
+            A high-performance feature grid designed to coordinate institutional cohorts and scale corporate recruiting operations.
           </p>
         </div>
 
@@ -533,7 +529,7 @@ export const LandingPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           
           {/* Card 1 - ATS Analysis (Span 2) */}
-          <div className="bg-white/85 backdrop-blur-md border border-slate-200 hover:border-blue-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 lg:p-8 group flex flex-col justify-between min-h-[260px] lg:col-span-2 relative overflow-hidden">
+          <div className="bg-white/85 backdrop-blur-md border border-slate-200/80 hover:border-blue-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 lg:p-8 group flex flex-col justify-between min-h-[260px] lg:col-span-2 relative overflow-hidden">
             {/* Decorative SVG Graphic Accent */}
             <div className="absolute top-4 right-4 w-24 h-24 text-blue-500/10 pointer-events-none transform group-hover:scale-105 group-hover:rotate-6 transition-all duration-500 ease-out">
               <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -547,16 +543,16 @@ export const LandingPage: React.FC = () => {
               <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 mb-5 group-hover:bg-blue-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm">
                 <FileText className="w-5 h-5" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2.5 tracking-tight">AI Resume ATS Analysis</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-2.5 tracking-tight">Semantic Portfolio Analysis</h3>
               <p className="text-xs text-slate-500 leading-relaxed font-medium max-w-2xl">
-                Leverage real-time semantic parsing to audit resume formatting, keyword frequencies, and target matches against active company profiles. Neutralize layout biases automatically and ensure maximum structural compatibility with ATS engines.
+                Leverage real-time semantic parsing to analyze portfolio schemas and matching scores against active corporate profiles. Standardize formatting structure and ensure compliance with ATS models.
               </p>
             </div>
-            <span className="text-[10px] font-semibold text-blue-600 mt-4 flex items-center gap-1 relative z-10 uppercase tracking-wide">Advanced Parser • Standardized Audit Trail</span>
+            <span className="text-[10px] font-semibold text-blue-600 mt-4 flex items-center gap-1 relative z-10 uppercase tracking-wide">Analysis Engine • Standardized Audit Trail</span>
           </div>
 
           {/* Card 2 - Skill Assessment (Span 1, Tall Card / row-span-2) */}
-          <div className="bg-white/85 backdrop-blur-md border border-slate-200 hover:border-indigo-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 group flex flex-col justify-between lg:row-span-2 relative overflow-hidden">
+          <div className="bg-white/85 backdrop-blur-md border border-slate-200/80 hover:border-indigo-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 group flex flex-col justify-between lg:row-span-2 relative overflow-hidden">
             {/* Decorative SVG Graphic Accent */}
             <div className="absolute top-4 right-4 w-24 h-24 text-indigo-500/10 pointer-events-none transform group-hover:scale-105 group-hover:-rotate-6 transition-all duration-500 ease-out">
               <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -569,16 +565,16 @@ export const LandingPage: React.FC = () => {
               <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 mb-5 group-hover:bg-indigo-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm">
                 <Brain className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-slate-905 text-slate-900 mb-2.5 tracking-tight">Skill Assessment</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-2.5 tracking-tight">Validated Competency Audits</h3>
               <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                Standardized assessments covering technical stacks and behavioral frameworks with automated browser lock and proctor auditing. Built to detect cognitive anomalies and verify technical competence with high-fidelity validation.
+                Proctored assessments evaluating technical competence and logical frameworks. Integrated browser lock and cognitive anomaly indicators ensure absolute grading integrity.
               </p>
             </div>
-            <span className="text-[10px] font-semibold text-indigo-605 text-indigo-600 mt-4 block relative z-10 uppercase tracking-wide">Proctor Shield Enabled</span>
+            <span className="text-[10px] font-semibold text-indigo-600 mt-4 block relative z-10 uppercase tracking-wide">Security Shield Active</span>
           </div>
 
           {/* Card 3 - Learning Roadmap (Span 1) */}
-          <div className="bg-white/85 backdrop-blur-md border border-slate-200 hover:border-cyan-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 group flex flex-col justify-between col-span-1 relative overflow-hidden">
+          <div className="bg-white/85 backdrop-blur-md border border-slate-200/80 hover:border-cyan-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 group flex flex-col justify-between col-span-1 relative overflow-hidden">
             {/* Decorative SVG Graphic Accent */}
             <div className="absolute top-4 right-4 w-24 h-24 text-cyan-500/10 pointer-events-none transform group-hover:scale-105 group-hover:rotate-12 transition-all duration-500 ease-out">
               <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -591,16 +587,16 @@ export const LandingPage: React.FC = () => {
               <div className="w-10 h-10 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-600 mb-5 group-hover:bg-cyan-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm">
                 <BookOpen className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-slate-905 text-slate-900 mb-2.5 tracking-tight">Learning Roadmap</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-2.5 tracking-tight">Adaptive Learning Pathing</h3>
               <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                Dynamically generates personalized video playlists and repository exercises to bridge precise core competency deficits.
+                Generate target learning pathing and code exercises to resolve specific capability gaps captured during evaluations.
               </p>
             </div>
-            <span className="text-[10px] font-semibold text-cyan-705 text-cyan-750 text-cyan-700 mt-4 block relative z-10 uppercase tracking-wide">Adaptive Curriculum</span>
+            <span className="text-[10px] font-semibold text-cyan-700 mt-4 block relative z-10 uppercase tracking-wide">Adaptive Pathing System</span>
           </div>
 
           {/* Card 6 - College Analytics (Span 1) */}
-          <div className="bg-white/85 backdrop-blur-md border border-slate-200 hover:border-emerald-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 group flex flex-col justify-between col-span-1 relative overflow-hidden">
+          <div className="bg-white/85 backdrop-blur-md border border-slate-200/80 hover:border-emerald-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 group flex flex-col justify-between col-span-1 relative overflow-hidden">
             {/* Decorative SVG Graphic Accent */}
             <div className="absolute top-4 right-4 w-24 h-24 text-emerald-500/10 pointer-events-none transform group-hover:scale-105 group-hover:translate-x-1 transition-all duration-500 ease-out">
               <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -613,16 +609,16 @@ export const LandingPage: React.FC = () => {
               <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-5 group-hover:bg-emerald-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm">
                 <Database className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-slate-905 text-slate-900 mb-2.5 tracking-tight">College Analytics</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-2.5 tracking-tight">Institutional Analytics Console</h3>
               <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                Track student enrollment readiness, aggregate assessment parameters, and audit recruitment company logs from a unified dashboard.
+                Track aggregate cohort readiness indices, evaluate assessment parameters, and audit enterprise engagement statistics from a central console.
               </p>
             </div>
-            <span className="text-[10px] font-semibold text-emerald-705 text-emerald-700 mt-4 block relative z-10 uppercase tracking-wide">Systemic Audit Logs</span>
+            <span className="text-[10px] font-semibold text-emerald-700 mt-4 block relative z-10 uppercase tracking-wide">Cohort Metrics Console</span>
           </div>
 
           {/* Card 7 - Mentorship Tracking (Span 1, Tall Card / row-span-2) */}
-          <div className="bg-white/85 backdrop-blur-md border border-slate-200 hover:border-amber-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 group flex flex-col justify-between lg:row-span-2 col-span-1 relative overflow-hidden">
+          <div className="bg-white/85 backdrop-blur-md border border-slate-200/80 hover:border-amber-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 group flex flex-col justify-between lg:row-span-2 col-span-1 relative overflow-hidden">
             {/* Decorative SVG Graphic Accent */}
             <div className="absolute top-4 right-4 w-24 h-24 text-amber-500/10 pointer-events-none transform group-hover:scale-105 group-hover:-translate-y-1 transition-all duration-500 ease-out">
               <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -636,16 +632,16 @@ export const LandingPage: React.FC = () => {
               <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 mb-5 group-hover:bg-amber-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm">
                 <MessageSquare className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-slate-905 text-slate-900 mb-2.5 tracking-tight">Mentorship Tracking</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-2.5 tracking-tight">Advisory Audit Log</h3>
               <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                Coordinate booking calendars, mock coding feedback sessions, and profile rating indicators within an integrated audit trail. Connect with elite mentors who offer specialized, corporate-grade code reviews and architectural training.
+                Coordinate mock technical panels and portfolio reviews within an integrated audit trail. Connect cohorts with industry professionals for specialized code check-ins.
               </p>
             </div>
-            <span className="text-[10px] font-semibold text-amber-705 text-amber-700 mt-4 block relative z-10 uppercase tracking-wide">Feedback Logs</span>
+            <span className="text-[10px] font-semibold text-amber-700 mt-4 block relative z-10 uppercase tracking-wide">Advisory Evaluations</span>
           </div>
 
           {/* Card 4 - Candidate Matching (Span 2) */}
-          <div className="bg-white/85 backdrop-blur-md border border-slate-200 hover:border-blue-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 lg:p-8 group flex flex-col justify-between min-h-[220px] lg:col-span-2 relative overflow-hidden">
+          <div className="bg-white/85 backdrop-blur-md border border-slate-200/80 hover:border-blue-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 lg:p-8 group flex flex-col justify-between min-h-[220px] lg:col-span-2 relative overflow-hidden">
             {/* Decorative SVG Graphic Accent */}
             <div className="absolute top-4 right-4 w-24 h-24 text-blue-500/10 pointer-events-none transform group-hover:scale-105 group-hover:rotate-45 transition-all duration-500 ease-out">
               <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -657,16 +653,16 @@ export const LandingPage: React.FC = () => {
               <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 mb-5 group-hover:bg-blue-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm">
                 <Cpu className="w-5 h-5" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2.5 tracking-tight">Candidate Vector Matching</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-2.5 tracking-tight">Multidimensional Vector Alignment</h3>
               <p className="text-xs text-slate-500 leading-relaxed font-medium max-w-2xl">
-                Vector matching filters out unqualified applications by scoring real-time technical logic indicators, bypassing keyword stuffing. Map candidate embeddings directly against structural requirements of modern enterprise roles.
+                Filter out noise by matching candidate competency embeddings against specific functional roles. Bypasses keyword stuffing with semantic index matching.
               </p>
             </div>
-            <span className="text-[10px] font-semibold text-blue-600 mt-4 flex items-center gap-1 relative z-10 uppercase tracking-wide">Cognitive Vectors • 99.4% Matching Accuracy</span>
+            <span className="text-[10px] font-semibold text-blue-600 mt-4 flex items-center gap-1 relative z-10 uppercase tracking-wide">Alignment Index • 99.4% Accuracy</span>
           </div>
 
           {/* Card 5 - Recruiter Hub (Span 2) */}
-          <div className="bg-white/85 backdrop-blur-md border border-slate-200 hover:border-pink-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 lg:p-8 group flex flex-col justify-between min-h-[220px] lg:col-span-2 relative overflow-hidden">
+          <div className="bg-white/85 backdrop-blur-md border border-slate-200/80 hover:border-pink-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 lg:p-8 group flex flex-col justify-between min-h-[220px] lg:col-span-2 relative overflow-hidden">
             {/* Decorative SVG Graphic Accent */}
             <div className="absolute top-4 right-4 w-24 h-24 text-pink-500/10 pointer-events-none transform group-hover:scale-105 group-hover:scale-110 transition-all duration-500 ease-out">
               <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -680,16 +676,16 @@ export const LandingPage: React.FC = () => {
               <div className="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center text-pink-600 mb-5 group-hover:bg-pink-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm">
                 <BarChart3 className="w-5 h-5" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2.5 tracking-tight">Recruiter Hub</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-2.5 tracking-tight">Enterprise Sourcing Hub</h3>
               <p className="text-xs text-slate-500 leading-relaxed font-medium max-w-2xl">
-                Direct pipeline filtering, interview scheduling coordinates, background check status updates, and cohort communication suites. Simplify sourcing times by up to 10x with pre-screened talent listings.
+                Manage pipeline stages, schedule panel interviews, verify credential checks, and initiate outreach. Optimize screening cycles by up to 10x with validated cohorts.
               </p>
             </div>
-            <span className="text-[10px] font-semibold text-pink-650 text-pink-600 mt-4 flex items-center gap-1 relative z-10 uppercase tracking-wide">Structured Sourcing Pipeline</span>
+            <span className="text-[10px] font-semibold text-pink-600 mt-4 flex items-center gap-1 relative z-10 uppercase tracking-wide">Enterprise Sourcing Portal</span>
           </div>
 
           {/* Card 8 - Placement Monitoring (Span 1) */}
-          <div className="bg-white/85 backdrop-blur-md border border-slate-200 hover:border-teal-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 group flex flex-col justify-between col-span-1 relative overflow-hidden">
+          <div className="bg-white/85 backdrop-blur-md border border-slate-200/80 hover:border-teal-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 group flex flex-col justify-between col-span-1 relative overflow-hidden">
             {/* Decorative SVG Graphic Accent */}
             <div className="absolute top-4 right-4 w-24 h-24 text-teal-500/10 pointer-events-none transform group-hover:scale-105 group-hover:-rotate-12 transition-all duration-500 ease-out">
               <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -702,16 +698,16 @@ export const LandingPage: React.FC = () => {
               <div className="w-10 h-10 rounded-xl bg-teal-50 flex items-center justify-center text-teal-600 mb-5 group-hover:bg-teal-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm">
                 <Award className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-slate-905 text-slate-900 mb-2.5 tracking-tight">Placement Monitoring</h3>
+              <h3 className="text-lg font-bold text-slate-900 mb-2.5 tracking-tight">Onboarding & Placement Validation</h3>
               <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                Audit offers, track letter of intent updates, verify onboarding checks, and generate annual placement validation reports.
+                Audit formal offers, coordinate onboarding compliance, verify credentials, and generate institutional verification reports.
               </p>
             </div>
-            <span className="text-[10px] font-semibold text-teal-700 mt-4 block relative z-10 uppercase tracking-wide">Compliance Assured</span>
+            <span className="text-[10px] font-semibold text-teal-700 mt-4 block relative z-10 uppercase tracking-wide">Validation Ledger</span>
           </div>
 
           {/* Card 9 - AI Mock Interviews (Span 2) */}
-          <div className="bg-white/85 backdrop-blur-md border border-slate-200 hover:border-blue-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 lg:p-8 group flex flex-col justify-between min-h-[220px] lg:col-span-2 relative overflow-hidden">
+          <div className="bg-white/85 backdrop-blur-md border border-slate-200/80 hover:border-blue-500/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl p-6 lg:p-8 group flex flex-col justify-between min-h-[220px] lg:col-span-2 relative overflow-hidden">
             {/* Decorative SVG Graphic Accent */}
             <div className="absolute top-4 right-4 w-24 h-24 text-blue-500/10 pointer-events-none transform group-hover:scale-105 group-hover:translate-y-[-2px] transition-all duration-500 ease-out">
               <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -724,12 +720,12 @@ export const LandingPage: React.FC = () => {
               <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 mb-5 group-hover:bg-blue-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm">
                 <Mic className="w-5 h-5" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2.5 tracking-tight">AI Mock Interviews</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-2.5 tracking-tight">Speech & Tech Analysis Engine</h3>
               <p className="text-xs text-slate-500 leading-relaxed font-medium max-w-2xl">
-                Practice real interview questions, get instant feedback, improve communication skills, and boost confidence before actual interviews. Utilize deep speech analytics to correct pacing and vocabularies.
+                Conduct realistic mock panels, receive instant feedback, and refine communication metrics. Use speech analytics to evaluate technical vocabularies.
               </p>
             </div>
-            <span className="text-[10px] font-semibold text-blue-600 mt-4 flex items-center gap-1 relative z-10 uppercase tracking-wide">Speech Analysis Engine</span>
+            <span className="text-[10px] font-semibold text-blue-600 mt-4 flex items-center gap-1 relative z-10 uppercase tracking-wide">Speech Analytics System</span>
           </div>
 
           {/* Card 10 - Book A Demo (Span 3 / Full Width Bento Bottom Banner) */}
@@ -741,14 +737,14 @@ export const LandingPage: React.FC = () => {
                 <Calendar className="w-3 h-3 text-blue-400" />
                 <span>Executive Presentation</span>
               </div>
-              <h3 className="text-xl font-bold text-white mb-1.5 tracking-tight">Book A Demo Session</h3>
+              <h3 className="text-xl font-bold text-white mb-1.5 tracking-tight">Request Institutional Presentation</h3>
               <p className="text-xs text-slate-400 leading-relaxed font-medium">
-                Schedule a customized enterprise demo with our solutions engineer to see how our platform can aggregate student verification details, automate placements, and optimize hiring timelines for your cohort.
+                Request a structured enterprise overview to review how our platform aggregates student verification records, automates drives, and accelerates recruitment cycles.
               </p>
             </div>
             <a 
               href="#cta" 
-              className="group inline-flex items-center justify-center px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all duration-300 shadow-lg shadow-blue-605 shadow-blue-600/10 shrink-0 w-full md:w-auto hover:scale-[1.03] active:scale-[0.98] relative z-10"
+              className="group inline-flex items-center justify-center px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all duration-300 shadow-lg shadow-blue-600/10 shrink-0 w-full md:w-auto hover:scale-[1.03] active:scale-[0.98] relative z-10"
             >
               Schedule Review
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
@@ -766,13 +762,13 @@ export const LandingPage: React.FC = () => {
             {/* Left text column */}
             <div className="lg:col-span-5 flex flex-col space-y-6">
               <span className="px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-xs font-bold text-indigo-700 w-fit shadow-sm">
-                Network Architecture
+                Structural Topology
               </span>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-                A Unified Cognitive Network
+                A Multi-Directional Talent Network
               </h2>
               <p className="text-slate-500 text-base font-medium leading-relaxed">
-                Campus recruitment is not a linear chain, it is a web. C2C serves as the central orchestration engine that connects students, colleges, mentors, recruiters, and companies seamlessly.
+                Placement operations require multi-party coordination. Our platform functions as the central orchestration node connecting candidates, institutions, and corporate recruiters.
               </p>
               
               <div className="space-y-4">
@@ -829,7 +825,7 @@ export const LandingPage: React.FC = () => {
                   return (
                      <div 
                       key={node.id}
-                      className={`absolute flex flex-col items-center ${node.pos} transition-all duration-350 z-10 ${
+                      className={`absolute flex flex-col items-center ${node.pos} transition-all duration-300 z-10 ${
                         isActive ? 'scale-110' : 'opacity-75 scale-100'
                       }`}
                       onMouseEnter={() => setHoveredStakeholder(node.id)}
@@ -896,7 +892,7 @@ export const LandingPage: React.FC = () => {
                 <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-4 shadow-sm">
                   <span className="text-[10px] text-slate-400 block mb-1.5 font-bold uppercase tracking-wider">Rank Status</span>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-slate-805 text-slate-800">Top 2%</span>
+                    <span className="text-sm font-bold text-slate-800">Top 2%</span>
                     <span className="text-[9px] text-emerald-700 px-2 py-0.5 rounded bg-emerald-50 border border-emerald-100/80 font-bold uppercase tracking-wider">High Priority</span>
                   </div>
                 </div>
@@ -904,7 +900,7 @@ export const LandingPage: React.FC = () => {
                 <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-4 shadow-sm">
                   <span className="text-[10px] text-slate-400 block mb-1.5 font-bold uppercase tracking-wider">Employability Score</span>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-slate-805 text-slate-800">A+ Tier</span>
+                    <span className="text-sm font-bold text-slate-800">A+ Tier</span>
                     <span className="text-[9px] text-blue-700 px-2 py-0.5 rounded bg-blue-50 border border-blue-100/80 font-bold uppercase tracking-wider">Verified</span>
                   </div>
                 </div>
@@ -917,13 +913,13 @@ export const LandingPage: React.FC = () => {
           {/* Right Column: AI Explanations */}
           <div className="lg:col-span-6 flex flex-col space-y-6">
             <span className="px-3.5 py-1.5 rounded-full bg-cyan-50 border border-cyan-100 text-xs font-bold text-cyan-700 w-fit shadow-sm">
-              AI Intelligence
+              Algorithmic Precision
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              AI That Understands Skills, Jobs and Career Readiness
+              Data-Driven Talent Architecture & Cosine Alignment
             </h2>
-            <p className="text-slate-500 text-base font-medium leading-relaxed">
-              C2C is powered by a proprietary matching model that evaluates students beyond keywords. We track technical logical thinking, real-time code audit assessments, and soft skills to map readiness.
+            <p className="text-slate-600 text-base font-medium leading-relaxed">
+              Our semantic engine scores candidate readiness beyond simple text patterns. We evaluate technical logical execution, proctored code performance, and soft competency profiles.
             </p>
 
             <div className="space-y-5 pt-2">
@@ -943,7 +939,7 @@ export const LandingPage: React.FC = () => {
                   <Check className="w-3.5 h-3.5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-slate-805 text-slate-800 leading-tight">Skill gap detection</h3>
+                  <h3 className="text-base font-bold text-slate-800 leading-tight">Skill gap detection</h3>
                   <p className="text-xs text-slate-500 mt-1 font-medium leading-relaxed">Tracks student assessment errors and triggers curated, 10-minute micro-learning modules to plug precise knowledge leaks.</p>
                 </div>
               </div>
@@ -953,7 +949,7 @@ export const LandingPage: React.FC = () => {
                   <Check className="w-3.5 h-3.5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-slate-850 text-slate-800 leading-tight">Job recommendations</h3>
+                  <h3 className="text-base font-bold text-slate-800 leading-tight">Job recommendations</h3>
                   <p className="text-xs text-slate-500 mt-1 font-medium leading-relaxed">Evaluates job specifications using semantic mappings to align roles that match the student’s functional capabilities.</p>
                 </div>
               </div>
@@ -963,7 +959,7 @@ export const LandingPage: React.FC = () => {
                   <Check className="w-3.5 h-3.5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-slate-805 text-slate-800 leading-tight">Candidate ranking</h3>
+                  <h3 className="text-base font-bold text-slate-800 leading-tight">Candidate ranking</h3>
                   <p className="text-xs text-slate-500 mt-1 font-medium leading-relaxed">Ranks portfolios dynamically based on pre-assessed verification logs, helping recruiters hire in hours instead of weeks.</p>
                 </div>
               </div>
@@ -978,14 +974,14 @@ export const LandingPage: React.FC = () => {
       <ScrollReveal id="previews" className="relative z-10 py-24 bg-slate-50/50 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-105 border-blue-100 text-xs font-bold text-blue-700 shadow-sm">
-              Interactive Previews
+            <span className="px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-xs font-bold text-blue-700 shadow-sm">
+              Interface Previews
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mt-5 tracking-tight">
-              Explore Our Stakeholder Dashboards
+              Unified Stakeholder Console Suites
             </h2>
-            <p className="text-slate-500 mt-4 text-base font-medium leading-relaxed">
-              Unified, data-backed interfaces built for fast navigation, deep analysis, and micro-metric monitoring.
+            <p className="text-slate-600 mt-4 text-base font-medium leading-relaxed">
+              Role-specific, data-driven interfaces designed for real-time overview and placement validation.
             </p>
           </div>
 
@@ -1001,7 +997,7 @@ export const LandingPage: React.FC = () => {
                 onClick={() => setActiveDashboardTab(tab.id as 'student' | 'recruiter' | 'college')}
                 className={`px-6 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${
                   activeDashboardTab === tab.id
-                    ? 'bg-white text-blue-650 text-blue-600 shadow-md border border-slate-100'
+                    ? 'bg-white text-blue-600 shadow-md border border-slate-100'
                     : 'text-slate-500 hover:text-slate-900 hover:bg-white/40'
                 }`}
               >
@@ -1021,8 +1017,8 @@ export const LandingPage: React.FC = () => {
                 <div className="w-full lg:w-60 bg-slate-50 border-r border-slate-200 p-5 flex flex-col justify-between shrink-0">
                   <div className="space-y-8">
                     <div className="flex items-center space-x-3 px-2">
-                      <div className="w-6.5 h-6.5 rounded-lg bg-blue-605 bg-blue-600 flex items-center justify-center text-[10px] text-white font-black shadow-sm shadow-blue-500/20">S</div>
-                      <span className="text-xs font-black text-slate-808 text-slate-800 uppercase tracking-widest">Student Portal</span>
+                      <div className="w-6.5 h-6.5 rounded-lg bg-blue-600 flex items-center justify-center text-[10px] text-white font-black shadow-sm shadow-blue-500/20">S</div>
+                      <span className="text-xs font-black text-slate-800 uppercase tracking-widest">Student Portal</span>
                     </div>
                     <nav className="space-y-1.5 text-xs font-semibold">
                       <div className="px-3 py-2.5 rounded-xl bg-blue-50 text-blue-700 cursor-pointer flex items-center gap-2.5 transition-colors">
@@ -1031,13 +1027,13 @@ export const LandingPage: React.FC = () => {
                       <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
                         <BookOpen className="w-4 h-4 text-slate-400" /> Skill Roadmaps
                       </div>
-                      <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-105 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
+                      <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
                         <Calendar className="w-4 h-4 text-slate-400" /> Interviews
                       </div>
-                      <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-105 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
+                      <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
                         <Mic className="w-4 h-4 text-slate-400" /> Mock Trials
                       </div>
-                      <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-105 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
+                      <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
                         <UserCheck className="w-4 h-4 text-slate-400" /> Portfolio
                       </div>
                     </nav>
@@ -1051,10 +1047,10 @@ export const LandingPage: React.FC = () => {
                 <div className="flex-1 p-6 lg:p-10 space-y-8">
                   
                   {/* Header widget */}
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-105 border-slate-100 pb-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-6">
                     <div>
-                      <h3 className="text-xl font-bold text-slate-800 tracking-tight">Welcome back, Yuvraj</h3>
-                      <p className="text-xs text-slate-500 mt-1 font-medium">Here is your roadmap performance checklist for today.</p>
+                      <h3 className="text-xl font-bold text-slate-900 tracking-tight">Welcome back, Yuvraj</h3>
+                      <p className="text-xs text-slate-600 mt-1 font-medium">Here is your roadmap performance checklist for today.</p>
                     </div>
                     <div className="mt-4 sm:mt-0 flex items-center space-x-3 bg-slate-50 p-2 rounded-xl border border-slate-200/80 w-fit shadow-inner">
                       <span className="text-[10px] text-slate-400 uppercase tracking-widest font-black pl-2">Job Matches</span>
@@ -1071,11 +1067,11 @@ export const LandingPage: React.FC = () => {
                       {/* Roadmaps */}
                       <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-5 shadow-sm">
                         <h4 className="text-sm font-bold text-slate-800 mb-4 tracking-tight">Core Skill Roadmaps</h4>
-                        <div className="space-y-4 font-semibold">
+                        <div className="space-y-4 font-semibold text-slate-700">
                           
                           <div>
                             <div className="flex items-center justify-between text-xs mb-1.5">
-                              <span className="text-slate-700">React & Frontend Architecture</span>
+                              <span>React & Frontend Architecture</span>
                               <span className="text-slate-500 font-bold">82% Completed</span>
                             </div>
                             <div className="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
@@ -1085,8 +1081,8 @@ export const LandingPage: React.FC = () => {
 
                           <div>
                             <div className="flex items-center justify-between text-xs mb-1.5">
-                              <span className="text-slate-700">Data Structures & Analysis (TS)</span>
-                              <span className="text-slate-505 text-slate-500 font-bold">65% Completed</span>
+                              <span>Data Structures & Analysis (TS)</span>
+                              <span className="text-slate-500 font-bold">65% Completed</span>
                             </div>
                             <div className="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
                               <div className="bg-indigo-600 h-full rounded-full" style={{ width: '65%' }}></div>
@@ -1115,7 +1111,7 @@ export const LandingPage: React.FC = () => {
                                 <td className="py-3.5">Software Engineer (L4)</td>
                                 <td className="py-3.5 text-slate-400">June 24, 2026</td>
                                 <td className="py-3.5">
-                                  <span className="px-2 py-1 rounded bg-blue-50 text-blue-750 text-blue-700 border border-blue-100/80 font-bold text-[9px] uppercase tracking-wider">Technical Round 1</span>
+                                  <span className="px-2 py-1 rounded bg-blue-50 text-blue-700 border border-blue-100/80 font-bold text-[9px] uppercase tracking-wider">Technical Round 1</span>
                                 </td>
                               </tr>
                               <tr>
@@ -1137,13 +1133,13 @@ export const LandingPage: React.FC = () => {
                     <div className="space-y-6">
                       
                       <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-5 shadow-sm">
-                        <h4 className="text-sm font-bold text-slate-800 mb-4 tracking-tight">AI Skill Insights</h4>
-                        <div className="space-y-4 font-semibold text-slate-705">
-                          <div className="p-4 bg-blue-50/60 rounded-xl border border-blue-100/80 text-xs text-slate-700 leading-relaxed">
+                        <h4 className="text-sm font-bold text-slate-900 mb-4 tracking-tight">AI Skill Insights</h4>
+                        <div className="space-y-4 font-semibold text-slate-700">
+                          <div className="p-4 bg-blue-50/60 rounded-xl border border-blue-100/80 text-xs leading-relaxed">
                             <span className="font-bold text-blue-700 block mb-1 uppercase tracking-wider text-[9px]">Upgrade Alert</span>
                             We detected a minor gap in your GraphQL schema design performance. Check out the 5-min roadmap to boost match index by +3.1%.
                           </div>
-                          <div className="p-4 bg-emerald-50/60 rounded-xl border border-emerald-100/80 text-xs text-slate-700 leading-relaxed font-medium">
+                          <div className="p-4 bg-emerald-50/60 rounded-xl border border-emerald-100/80 text-xs leading-relaxed font-medium">
                             <span className="font-bold text-emerald-700 block mb-1 uppercase tracking-wider text-[9px]">ATS Optimization</span>
                             Adding "Tailwind CSS v4" to your verified portfolio keywords increased candidate search visibility index by +12.4%.
                           </div>
@@ -1177,10 +1173,10 @@ export const LandingPage: React.FC = () => {
                       <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
                         <Building className="w-4 h-4 text-slate-400" /> Campus Drives
                       </div>
-                      <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-105 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
+                      <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
                         <Calendar className="w-4 h-4 text-slate-400" /> Scheduler
                       </div>
-                      <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-105 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
+                      <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
                         <Users className="w-4 h-4 text-slate-400" /> Team Members
                       </div>
                     </nav>
@@ -1196,7 +1192,7 @@ export const LandingPage: React.FC = () => {
                   {/* Header widget */}
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-6">
                     <div>
-                      <h3 className="text-xl font-bold text-slate-808 text-slate-800 tracking-tight">Corporate Recruiting Portal</h3>
+                      <h3 className="text-xl font-bold text-slate-800 tracking-tight">Corporate Recruiting Portal</h3>
                       <p className="text-xs text-slate-500 mt-1 font-medium">Audit matching profiles across partnered college campuses in real time.</p>
                     </div>
                     <div className="mt-4 sm:mt-0 flex items-center space-x-3 bg-slate-50 p-2 rounded-xl border border-slate-200/80 w-fit shadow-inner">
@@ -1222,7 +1218,7 @@ export const LandingPage: React.FC = () => {
                         <tbody className="font-semibold text-slate-700">
                           <tr className="border-b border-slate-200/50">
                             <td className="py-3.5">
-                              <div className="font-bold text-slate-905 text-slate-900">Yuvraj Singh</div>
+                              <div className="font-bold text-slate-900">Yuvraj Singh</div>
                               <div className="text-[10px] text-slate-400">yuvraj@c2c.edu</div>
                             </td>
                             <td className="py-3.5 text-slate-700 font-bold">IIT Delhi</td>
@@ -1236,7 +1232,7 @@ export const LandingPage: React.FC = () => {
                           </tr>
                           <tr className="border-b border-slate-200/50">
                             <td className="py-3.5">
-                              <div className="font-bold text-slate-905 text-slate-900">Ananya Sharma</div>
+                              <div className="font-bold text-slate-900">Ananya Sharma</div>
                               <div className="text-[10px] text-slate-400">ananya@c2c.edu</div>
                             </td>
                             <td className="py-3.5 text-slate-700 font-bold">BITS Pilani</td>
@@ -1250,7 +1246,7 @@ export const LandingPage: React.FC = () => {
                           </tr>
                           <tr>
                             <td className="py-3.5">
-                              <div className="font-bold text-slate-905 text-slate-900">Rahul Verma</div>
+                              <div className="font-bold text-slate-900">Rahul Verma</div>
                               <div className="text-[10px] text-slate-400">rahul@c2c.edu</div>
                             </td>
                             <td className="py-3.5 text-slate-700 font-bold">NIT Trichy</td>
@@ -1290,10 +1286,10 @@ export const LandingPage: React.FC = () => {
                       <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
                         <GraduationCap className="w-4 h-4 text-slate-400" /> Student Roster
                       </div>
-                      <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-105 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
+                      <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
                         <Briefcase className="w-4 h-4 text-slate-400" /> Placement Drives
                       </div>
-                      <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-105 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
+                      <div className="px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer flex items-center gap-2.5 transition-all">
                         <FileText className="w-4 h-4 text-slate-400" /> Reports
                       </div>
                     </nav>
@@ -1307,14 +1303,14 @@ export const LandingPage: React.FC = () => {
                 <div className="flex-1 p-6 lg:p-10 space-y-8">
                   
                   {/* Header widget */}
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-105 border-slate-100 pb-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-6">
                     <div>
-                      <h3 className="text-xl font-bold text-slate-800 tracking-tight">College Placement Dashboard</h3>
-                      <p className="text-xs text-slate-500 mt-1 font-medium">Campus-wide candidate analytics, readiness progress, and company drive updates.</p>
+                      <h3 className="text-xl font-bold text-slate-900 tracking-tight">College Placement Dashboard</h3>
+                      <p className="text-xs text-slate-600 mt-1 font-medium">Campus-wide candidate analytics, readiness progress, and company drive updates.</p>
                     </div>
                     <div className="mt-4 sm:mt-0 flex items-center space-x-3 bg-slate-50 p-2 rounded-xl border border-slate-200/80 w-fit shadow-inner">
                       <span className="text-[10px] text-slate-400 uppercase tracking-widest font-black pl-2">Active Drive</span>
-                      <span className="bg-emerald-650 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow-sm">Stripe, Notion, Linear</span>
+                      <span className="bg-emerald-600 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow-sm">Stripe, Notion, Linear</span>
                     </div>
                   </div>
 
@@ -1391,14 +1387,14 @@ export const LandingPage: React.FC = () => {
 
           <div className="relative z-10 max-w-3xl mx-auto space-y-8">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-              Let’s Build the Future of Student Employability
+              Partner with Us to Align Student Competency
             </h2>
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto font-medium">
-              From learning to earning, C2C creates a measurable path for every student, college, recruiter, and enterprise.
+              Establish a data-backed career pathway. Align candidate competence with corporate requirements at scale.
             </p>
             <div className="pt-6">
-              <button className="group inline-flex items-center justify-center px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-650 text-base font-semibold text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/35 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">
-                Start Building
+              <button className="group inline-flex items-center justify-center px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-700 text-base font-semibold text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/35 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">
+                Initiate Implementation
                 <Zap className="ml-2 w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
               </button>
             </div>
@@ -1416,9 +1412,9 @@ export const LandingPage: React.FC = () => {
             
             {/* Column 1: Brand (logo, description, social) */}
             <div className="lg:col-span-5 space-y-6">
-              <LogoSVG className="h-9 w-auto" iconColor="text-blue-550 text-blue-500" textColor="text-white" />
+              <LogoSVG className="h-9 w-auto" iconColor="text-blue-500" textColor="text-white" />
               <p className="text-xs text-slate-400 leading-relaxed max-w-sm font-medium">
-                Bridging the gap between academic potential and corporate excellence through verifiable skill metrics, AI proctored assessments, and direct hiring pipelines.
+                Bridging the gap between academic potential and corporate excellence through verifiable skill metrics, proctored competency audits, and direct recruitment pathways.
               </p>
               <div className="flex items-center space-x-4 pt-2">
                 <a href="#" className="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-white hover:bg-blue-600 hover:border-blue-600 transition-all duration-300 shadow-sm" aria-label="LinkedIn">
@@ -1436,7 +1432,7 @@ export const LandingPage: React.FC = () => {
             {/* Column 2: Platform */}
             <div className="lg:col-span-2 space-y-4">
               <h4 className="text-xs font-black text-white uppercase tracking-widest">Platform</h4>
-              <ul className="space-y-3.5 text-xs font-semibold text-slate-450">
+              <ul className="space-y-3.5 text-xs font-semibold text-slate-400">
                 <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Solutions</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Enterprise</a></li>
@@ -1447,7 +1443,7 @@ export const LandingPage: React.FC = () => {
             {/* Column 3: Resources */}
             <div className="lg:col-span-2 space-y-4">
               <h4 className="text-xs font-black text-white uppercase tracking-widest">Resources</h4>
-              <ul className="space-y-3.5 text-xs font-semibold text-slate-455">
+              <ul className="space-y-3.5 text-xs font-semibold text-slate-400">
                 <li><a href="#" className="hover:text-white transition-colors">Case Studies</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Whitepapers</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
@@ -1458,7 +1454,7 @@ export const LandingPage: React.FC = () => {
             {/* Column 4: Company */}
             <div className="lg:col-span-3 space-y-4">
               <h4 className="text-xs font-black text-white uppercase tracking-widest">Company</h4>
-              <ul className="space-y-3.5 text-xs font-semibold text-slate-455">
+              <ul className="space-y-3.5 text-xs font-semibold text-slate-400">
                 <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Press</a></li>
@@ -1469,7 +1465,7 @@ export const LandingPage: React.FC = () => {
           </div>
 
           {/* Footer Bottom Row */}
-          <div className="pt-8 border-t border-slate-805 border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
             
             <div className="flex flex-col md:flex-row items-center gap-4 text-xs font-semibold text-slate-500">
               <span>&copy; {new Date().getFullYear()} Ashoksoft Technologies. All rights reserved.</span>

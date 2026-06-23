@@ -2,9 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { LandingPage } from '../pages/LandingPage';
-import { StudentDashboard } from '../pages/StudentDashboard'; 
-import { AdminDashboard } from './../pages/AdminDashboard';
-
+import { StudentDashboard } from '../pages/StudentDashboard';
 
 export const AppRoutes: React.FC = () => {
   return (
@@ -12,7 +10,6 @@ export const AppRoutes: React.FC = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/StudentDashboard" element={<StudentDashboard />} />
-        <Route path="/AdminDashboard" element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>
   );
