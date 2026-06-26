@@ -1,1 +1,29 @@
 @import "tailwindcss";
+
+@theme {
+  /* Redefine the Blue palette to Deeper Dark Violet shades */
+  --color-blue-50: #f5f2ff;
+  --color-blue-100: #e8e0ff;
+  --color-blue-200: #d0c0ff;
+  --color-blue-300: #b095ff;
+  --color-blue-400: #8f6aff;
+  --color-blue-500: #6c3ce6;
+  --color-blue-600: #5825ca; /* Core Dark Violet */
+  --color-blue-700: #451ba6;
+  --color-blue-800: #341381;
+  --color-blue-900: #230c5a;
+  --color-blue-950: #120533;
+
+  /* Redefine the Indigo palette to match Deeper Dark Violet */
+  --color-indigo-50: #f5f2ff;
+  --color-indigo-100: #e8e0ff;
+  --color-indigo-200: #d0c0ff;
+  --color-indigo-300: #b095ff;
+  --color-indigo-400: #8f6aff;
+  --color-indigo-500: #6c3ce6;
+  --color-indigo-600: #5825ca;
+  --color-indigo-700: #451ba6;
+  --color-indigo-800: #341381;
+  --color-indigo-900: #230c5a;
+  --color-indigo-950: #120533;
+}
