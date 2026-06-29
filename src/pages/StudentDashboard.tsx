@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  Brain, 
-  UserCheck, 
-  BookOpen, 
-  Users, 
-  Cpu, 
-  Calendar, 
+import {
+  Brain,
+  UserCheck,
+  BookOpen,
+  Users,
+  Cpu,
+  Calendar,
   Award,
   ChevronDown,
   Mail,
@@ -16,12 +16,15 @@ import {
   BookOpenCheck,
   Sparkles,
   Send,
-  X,
   FileText,
   CheckCircle,
   AlertCircle,
   Loader2,
-  CalendarDays
+  CalendarDays,
+  Upload,
+  Eye,
+  RefreshCw,
+  Lightbulb,
 } from 'lucide-react';
 import {
   AreaChart,
@@ -30,48 +33,26 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  CartesianGrid
-} from "recharts";
+  CartesianGrid,
+} from 'recharts';
 
-const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
+const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
 
-const data = [
-  { month: "Jan", score: 65 },
-  { month: "Feb", score: 72 },
-  { month: "Mar", score: 78 },
-  { month: "Apr", score: 85 },
-  { month: "May", score: 90 },
+// ─── Static Data ─────────────────────────────────────────────────────────────
+
+const performanceData = [
+  { month: 'Jan', score: 65 },
+  { month: 'Feb', score: 72 },
+  { month: 'Mar', score: 78 },
+  { month: 'Apr', score: 85 },
+  { month: 'May', score: 90 },
 ];
 
 const modules = [
-  { 
-    title: 'React Development', 
-    category: 'Frontend Development', 
-    progress: 70, 
-    color: 'bg-indigo-600',
-    track: 'indigo'
-  },
-  { 
-    title: 'Python Programming', 
-    category: 'Programming Fundamentals', 
-    progress: 45, 
-    color: 'bg-emerald-600',
-    track: 'emerald'
-  },
-  { 
-    title: 'Data Structures & Algorithms', 
-    category: 'Technical Interview Prep', 
-    progress: 60, 
-    color: 'bg-violet-600',
-    track: 'violet'
-  },
-  { 
-    title: 'Aptitude Training', 
-    category: 'Placement Prep', 
-    progress: 85, 
-    color: 'bg-amber-500',
-    track: 'amber'
-  }
+  { title: 'React Development', category: 'Frontend Development', progress: 70, color: 'bg-indigo-600' },
+  { title: 'Python Programming', category: 'Programming Fundamentals', progress: 45, color: 'bg-emerald-600' },
+  { title: 'Data Structures & Algorithms', category: 'Technical Interview Prep', progress: 60, color: 'bg-violet-600' },
+  { title: 'Aptitude Training', category: 'Placement Prep', progress: 85, color: 'bg-amber-500' },
 ];
 
 const studentContext = `
@@ -84,10 +65,55 @@ Performance Score Trend: Jan 65 → May 90 (improving)
 Upcoming: React Assignment Due Jun 25, Aptitude Assessment Jun 28, Mentor Session Jun 30, Mock Interview Jul 5
 `;
 
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+type Message = { role: 'user' | 'assistant'; content: string };
+
+interface StudyDay { day: string; tasks: string[] }
+
+interface ProfileResult {
+  score: number;
+  strengths: string[];
+  gaps: string[];
+  tip: string;
+}
+
+interface ATSBreakdown { label: string; score: number }
+
+interface ATSResult {
+  score: number;
+  title: string;
+  description: string;
+  breakdown: ATSBreakdown[];
+  keywords_found: string[];
+  keywords_missing: string[];
+  tip: string;
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+const callClaude = async (body: object): Promise<string> => {
+  const res = await fetch(ANTHROPIC_API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  const json = await res.json();
+  return (json.content ?? [])
+    .map((b: { type: string; text?: string }) => (b.type === 'text' ? b.text : ''))
+    .join('');
+};
+
+const parseJSON = <T,>(raw: string): T => {
+  const cleaned = raw.replace(/```json|```/g, '').trim();
+  return JSON.parse(cleaned) as T;
+};
+
 // ─── FEATURE 1: AI Smart Study Planner ───────────────────────────────────────
+
 const AIStudyPlanner: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [plan, setPlan] = useState<null | { day: string; tasks: string[] }[]>(null);
+  const [plan, setPlan] = useState<StudyDay[] | null>(null);
   const [error, setError] = useState('');
   const [generated, setGenerated] = useState(false);
 
@@ -96,15 +122,12 @@ const AIStudyPlanner: React.FC = () => {
     setError('');
     setPlan(null);
     try {
-      const res = await fetch(ANTHROPIC_API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 1000,
-          messages: [{
-            role: 'user',
-            content: `You are an AI study planner. Based on this student's data, generate a 5-day study plan (Mon–Fri) for this week. Respond ONLY with valid JSON — no preamble, no markdown, no backticks. Format:
+      const text = await callClaude({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        messages: [{
+          role: 'user',
+          content: `You are an AI study planner. Based on this student's data, generate a 5-day study plan (Mon–Fri) for this week. Respond ONLY with valid JSON — no preamble, no markdown, no backticks. Format:
 [{"day":"Monday","tasks":["task 1","task 2","task 3"]},...]
 
 Student context:
@@ -114,14 +137,10 @@ Rules:
 - Focus on weaker areas (Python 45%, DSA 60%)
 - Include aptitude prep (assessment Jun 28)
 - Keep tasks short (max 10 words each)
-- 3 tasks per day`
-          }]
-        })
+- 3 tasks per day`,
+        }],
       });
-      const json = await res.json();
-      const text = json.content?.map((b: { type: string; text?: string }) => b.type === 'text' ? b.text : '').join('') ?? '';
-      const cleaned = text.replace(/```json|```/g, '').trim();
-      setPlan(JSON.parse(cleaned));
+      setPlan(parseJSON<StudyDay[]>(text));
       setGenerated(true);
     } catch {
       setError('Failed to generate plan. Please try again.');
@@ -130,8 +149,14 @@ Rules:
     }
   };
 
-  const dayColors = ['bg-indigo-50 border-indigo-100', 'bg-violet-50 border-violet-100', 'bg-emerald-50 border-emerald-100', 'bg-amber-50 border-amber-100', 'bg-rose-50 border-rose-100'];
-  const dayDotColors = ['bg-indigo-500', 'bg-violet-500', 'bg-emerald-500', 'bg-amber-500', 'bg-rose-500'];
+  const dayColors = [
+    'bg-indigo-50 border-indigo-100',
+    'bg-violet-50 border-violet-100',
+    'bg-emerald-50 border-emerald-100',
+    'bg-amber-50 border-amber-100',
+    'bg-rose-50 border-rose-100',
+  ];
+  const dotColors = ['bg-indigo-500', 'bg-violet-500', 'bg-emerald-500', 'bg-amber-500', 'bg-rose-500'];
 
   return (
     <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
@@ -182,7 +207,7 @@ Rules:
           {plan.map((day, i) => (
             <div key={i} className={`rounded-xl border p-3 ${dayColors[i]}`}>
               <div className="flex items-center gap-2 mb-2">
-                <span className={`w-2 h-2 rounded-full ${dayDotColors[i]}`} />
+                <span className={`w-2 h-2 rounded-full ${dotColors[i]}`} />
                 <span className="text-xs font-semibold text-slate-700">{day.day}</span>
               </div>
               <ul className="space-y-1">
@@ -207,10 +232,11 @@ Rules:
   );
 };
 
-// ─── FEATURE 2: AI Profile / Resume Analyzer ─────────────────────────────────
+// ─── FEATURE 2: AI Placement Readiness Analyzer ──────────────────────────────
+
 const AIProfileAnalyzer: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<null | { score: number; strengths: string[]; gaps: string[]; tip: string }>(null);
+  const [result, setResult] = useState<ProfileResult | null>(null);
   const [error, setError] = useState('');
   const [analyzed, setAnalyzed] = useState(false);
 
@@ -219,15 +245,12 @@ const AIProfileAnalyzer: React.FC = () => {
     setError('');
     setResult(null);
     try {
-      const res = await fetch(ANTHROPIC_API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 1000,
-          messages: [{
-            role: 'user',
-            content: `You are a placement readiness analyzer. Analyze this student profile and return ONLY valid JSON — no markdown, no backticks, no extra text.
+      const text = await callClaude({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        messages: [{
+          role: 'user',
+          content: `You are a placement readiness analyzer. Analyze this student profile and return ONLY valid JSON — no markdown, no backticks, no extra text.
 
 Format: {"score":75,"strengths":["strength 1","strength 2","strength 3"],"gaps":["gap 1","gap 2"],"tip":"One actionable tip under 20 words."}
 
@@ -238,14 +261,10 @@ Rules:
 - tip: single most impactful next step
 
 Student data:
-${studentContext}`
-          }]
-        })
+${studentContext}`,
+        }],
       });
-      const json = await res.json();
-      const text = json.content?.map((b: { type: string; text?: string }) => b.type === 'text' ? b.text : '').join('') ?? '';
-      const cleaned = text.replace(/```json|```/g, '').trim();
-      setResult(JSON.parse(cleaned));
+      setResult(parseJSON<ProfileResult>(text));
       setAnalyzed(true);
     } catch {
       setError('Analysis failed. Please try again.');
@@ -369,13 +388,304 @@ ${studentContext}`
   );
 };
 
-// ─── FEATURE 3: AI Career Coach Chat ─────────────────────────────────────────
-type Message = { role: 'user' | 'assistant'; content: string };
+// ─── FEATURE 3: AI ATS Resume Scorer ─────────────────────────────────────────
+
+const AIATSScorer: React.FC = () => {
+  const [fileName, setFileName] = useState('');
+  const [fileContent, setFileContent] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<ATSResult | null>(null);
+  const [error, setError] = useState('');
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const processFile = (file: File) => {
+    setFileName(file.name);
+    setError('');
+    const reader = new FileReader();
+    reader.onload = (e) => setFileContent((e.target?.result as string) || '');
+    reader.readAsText(file);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) processFile(file);
+  };
+
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) processFile(file);
+  };
+
+  const analyze = async () => {
+    if (!fileName) return;
+    setLoading(true);
+    setError('');
+    setResult(null);
+
+    const resumeText = fileContent
+      ? fileContent.slice(0, 3000)
+      : `[No extractable text — filename: ${fileName}]`;
+
+    try {
+      const text = await callClaude({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        messages: [{
+          role: 'user',
+          content: `You are an expert ATS (Applicant Tracking System) resume analyzer. Analyze this resume and return ONLY valid JSON — no markdown, no backticks, no extra text.
+
+Format exactly:
+{"score":72,"title":"Good ATS Match","description":"Your resume passes most ATS filters with minor gaps.","breakdown":[{"label":"Keyword density","score":80},{"label":"Format & structure","score":75},{"label":"Contact info","score":90},{"label":"Work experience","score":70},{"label":"Skills section","score":65},{"label":"Quantified results","score":55}],"keywords_found":["Python","JavaScript","SQL","React","Problem-solving"],"keywords_missing":["CI/CD","Docker","Agile","REST APIs"],"tip":"Add quantified impact metrics (e.g., 'Reduced load time by 30%') to boost recruiter attention."}
+
+Rules:
+- score: 0-100 integer
+- title: 3-5 words
+- description: 1 sentence under 20 words
+- breakdown: exactly 6 items, label (2-3 words) and score (0-100 int)
+- keywords_found: 4-6 items
+- keywords_missing: 3-5 items
+- tip: 1 sentence under 25 words
+
+Resume content:
+${resumeText}`,
+        }],
+      });
+      setResult(parseJSON<ATSResult>(text));
+    } catch {
+      setError('Analysis failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const reset = () => {
+    setFileName('');
+    setFileContent('');
+    setResult(null);
+    setError('');
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const getScoreColor = (s: number) =>
+    s >= 75 ? { ring: 'stroke-emerald-500', text: 'text-emerald-600' }
+    : s >= 50 ? { ring: 'stroke-amber-500', text: 'text-amber-600' }
+    : { ring: 'stroke-rose-500', text: 'text-rose-600' };
+
+  const getBarColor = (s: number) =>
+    s >= 75 ? 'bg-emerald-500' : s >= 50 ? 'bg-amber-500' : 'bg-rose-500';
+
+  const getScoreTag = (s: number) =>
+    s >= 75
+      ? { label: 'ATS Friendly', cls: 'bg-emerald-50 text-emerald-700 border-emerald-100' }
+      : s >= 50
+      ? { label: 'Needs Improvement', cls: 'bg-amber-50 text-amber-700 border-amber-100' }
+      : { label: 'Low ATS Score', cls: 'bg-rose-50 text-rose-700 border-rose-100' };
+
+  const circumference = 2 * Math.PI * 32;
+
+  return (
+    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+      {/* Header */}
+      <div className="flex items-start justify-between mb-5">
+        <div>
+          <h2 className="text-base font-semibold text-slate-900 flex items-center gap-2">
+            <FileText className="w-4 h-4 text-amber-500" />
+            ATS Resume Scorer
+          </h2>
+          <p className="text-xs text-slate-500 mt-0.5">Upload your resume for an instant ATS compatibility score</p>
+        </div>
+        <span className="text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-100 px-2 py-0.5 rounded-full">AI</span>
+      </div>
+
+      {/* Upload state */}
+      {!loading && !result && (
+        <>
+          <div
+            onClick={() => fileInputRef.current?.click()}
+            onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+            onDragLeave={() => setIsDragging(false)}
+            onDrop={handleDrop}
+            className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors ${
+              isDragging
+                ? 'border-amber-400 bg-amber-50'
+                : fileName
+                ? 'border-emerald-300 bg-emerald-50'
+                : 'border-slate-200 bg-slate-50 hover:border-amber-300 hover:bg-amber-50'
+            }`}
+          >
+            <div className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center mx-auto mb-3">
+              <Upload className={`w-4 h-4 ${fileName ? 'text-emerald-500' : 'text-slate-400'}`} />
+            </div>
+            {fileName ? (
+              <>
+                <p className="text-xs font-semibold text-emerald-700">{fileName}</p>
+                <p className="text-[11px] text-slate-400 mt-1">Click to replace</p>
+              </>
+            ) : (
+              <>
+                <p className="text-xs font-semibold text-slate-700">Drop your resume here or click to browse</p>
+                <p className="text-[11px] text-slate-400 mt-1">PDF, TXT, DOC · Max 5 MB</p>
+              </>
+            )}
+          </div>
+
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".pdf,.txt,.doc,.docx"
+            className="hidden"
+            onChange={handleFileInput}
+          />
+
+          <button
+            onClick={analyze}
+            disabled={!fileName}
+            className="mt-3 w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            Analyze Resume
+          </button>
+
+          {error && (
+            <div className="flex items-center gap-2 text-rose-600 text-xs bg-rose-50 border border-rose-100 rounded-lg px-3 py-2 mt-3">
+              <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+              {error}
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Loading */}
+      {loading && (
+        <div className="flex flex-col items-center py-8 gap-2">
+          <Loader2 className="w-5 h-5 text-amber-500 animate-spin" />
+          <p className="text-xs text-slate-400">Analyzing your resume against ATS criteria…</p>
+        </div>
+      )}
+
+      {/* Result */}
+      {result && (
+        <div className="space-y-5">
+          {/* Score summary */}
+          <div className="flex items-center gap-5">
+            <div className="relative flex-shrink-0 w-[80px] h-[80px]">
+              <svg width="80" height="80" viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r="32" fill="none" stroke="#f1f5f9" strokeWidth="7" />
+                <circle
+                  cx="40" cy="40" r="32"
+                  fill="none"
+                  className={getScoreColor(result.score).ring}
+                  strokeWidth="7"
+                  strokeLinecap="round"
+                  strokeDasharray={circumference}
+                  strokeDashoffset={circumference - (circumference * result.score) / 100}
+                  transform="rotate(-90 40 40)"
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className={`text-xl font-bold ${getScoreColor(result.score).text}`}>{result.score}</span>
+                <span className="text-[9px] text-slate-400">/ 100</span>
+              </div>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-slate-800">{result.title}</p>
+              <p className="text-xs text-slate-500 mt-0.5">{result.description}</p>
+              <span className={`inline-block mt-2 text-[10px] font-semibold px-2.5 py-0.5 rounded-full border ${getScoreTag(result.score).cls}`}>
+                {getScoreTag(result.score).label}
+              </span>
+            </div>
+          </div>
+
+          {/* Breakdown bars */}
+          <div>
+            <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-3">Score Breakdown</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+              {result.breakdown.map((item, i) => (
+                <div key={i}>
+                  <div className="flex justify-between mb-1">
+                    <span className="text-[11px] text-slate-600">{item.label}</span>
+                    <span className="text-[11px] font-semibold text-slate-700">{item.score}%</span>
+                  </div>
+                  <div className="w-full bg-slate-100 rounded-full h-1.5">
+                    <div
+                      className={`h-1.5 rounded-full ${getBarColor(item.score)} transition-all duration-500`}
+                      style={{ width: `${item.score}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Keywords */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">Keywords found</p>
+              <div className="flex flex-wrap gap-1.5">
+                {result.keywords_found.map((k, i) => (
+                  <span key={i} className="text-[11px] px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
+                    {k}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">Keywords missing</p>
+              <div className="flex flex-wrap gap-1.5">
+                {result.keywords_missing.map((k, i) => (
+                  <span key={i} className="text-[11px] px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-100">
+                    {k}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Tip */}
+          <div className="bg-indigo-50 border border-indigo-100 rounded-lg p-3 flex gap-2.5">
+            <Lightbulb className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-[10px] font-semibold text-indigo-400 uppercase tracking-wider mb-0.5">Top recommendation</p>
+              <p className="text-xs text-indigo-700">{result.tip}</p>
+            </div>
+          </div>
+
+          {/* Visibility note */}
+          <div className="flex items-center gap-2 bg-slate-50 border border-slate-100 rounded-lg px-3 py-2">
+            <Eye className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+            <p className="text-[11px] text-slate-400">
+              This score is visible to <span className="font-medium text-slate-500">you</span>,{' '}
+              <span className="font-medium text-slate-500">recruiters</span>, and{' '}
+              <span className="font-medium text-slate-500">admins</span> reviewing your profile.
+            </p>
+          </div>
+
+          {/* Re-score */}
+          <button
+            onClick={reset}
+            className="w-full text-xs text-amber-600 hover:text-amber-700 font-medium py-2 border border-amber-100 rounded-lg hover:bg-amber-50 transition-colors flex items-center justify-center gap-2"
+          >
+            <RefreshCw className="w-3 h-3" />
+            Score another resume
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ─── FEATURE 4: AI Career Coach Chat ─────────────────────────────────────────
 
 const AICareerCoach: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: "Hi Yuvraj! 👋 I'm your AI Career Coach. I know your profile — ask me anything about placements, interviews, or your learning path!" }
+    {
+      role: 'assistant',
+      content: "Hi Yuvraj! 👋 I'm your AI Career Coach. I know your profile — ask me anything about placements, interviews, or your learning path!",
+    },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -393,23 +703,17 @@ const AICareerCoach: React.FC = () => {
     setInput('');
     setLoading(true);
     try {
-      const res = await fetch(ANTHROPIC_API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 1000,
-          system: `You are an expert AI Career Coach for engineering students. You have access to this student's data:
+      const reply = await callClaude({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: `You are an expert AI Career Coach for engineering students. You have access to this student's data:
 ${studentContext}
 Be concise, warm, and actionable. Keep responses under 100 words. Use bullet points for lists. Never make up information.`,
-          messages: newMessages.map(m => ({ role: m.role, content: m.content }))
-        })
+        messages: newMessages.map((m) => ({ role: m.role, content: m.content })),
       });
-      const json = await res.json();
-      const reply = json.content?.map((b: { type: string; text?: string }) => b.type === 'text' ? b.text : '').join('') ?? "Sorry, I couldn't respond. Try again.";
-      setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
+      setMessages((prev) => [...prev, { role: 'assistant', content: reply || "Sorry, I couldn't respond. Try again." }]);
     } catch {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Something went wrong. Please try again.' }]);
+      setMessages((prev) => [...prev, { role: 'assistant', content: 'Something went wrong. Please try again.' }]);
     } finally {
       setLoading(false);
     }
@@ -454,15 +758,16 @@ Be concise, warm, and actionable. Keep responses under 100 words. Use bullet poi
 
       {open && (
         <div className="mt-4">
-          {/* Messages */}
           <div className="h-72 overflow-y-auto space-y-3 p-4 bg-slate-50 rounded-xl border border-slate-100">
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-xs leading-relaxed whitespace-pre-wrap ${
-                  msg.role === 'user'
-                    ? 'bg-indigo-600 text-white rounded-tr-sm'
-                    : 'bg-white border border-slate-200 text-slate-700 rounded-tl-sm'
-                }`}>
+                <div
+                  className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-xs leading-relaxed whitespace-pre-wrap ${
+                    msg.role === 'user'
+                      ? 'bg-indigo-600 text-white rounded-tr-sm'
+                      : 'bg-white border border-slate-200 text-slate-700 rounded-tl-sm'
+                  }`}
+                >
                   {msg.role === 'assistant' && (
                     <div className="flex items-center gap-1.5 mb-1">
                       <div className="w-4 h-4 rounded-full bg-indigo-100 flex items-center justify-center">
@@ -486,7 +791,6 @@ Be concise, warm, and actionable. Keep responses under 100 words. Use bullet poi
             <div ref={bottomRef} />
           </div>
 
-          {/* Suggestion chips when chat is open */}
           <div className="flex flex-wrap gap-2 mt-3">
             {suggestions.map((s, i) => (
               <button
@@ -499,13 +803,12 @@ Be concise, warm, and actionable. Keep responses under 100 words. Use bullet poi
             ))}
           </div>
 
-          {/* Input */}
           <div className="flex gap-2 mt-3">
             <input
               type="text"
               value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && sendMessage()}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
               placeholder="Ask your career coach…"
               className="flex-1 text-xs bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 placeholder-slate-400 focus:outline-none focus:border-indigo-300 focus:ring-2 focus:ring-indigo-50"
             />
@@ -524,18 +827,17 @@ Be concise, warm, and actionable. Keep responses under 100 words. Use bullet poi
 };
 
 // ─── MAIN DASHBOARD ───────────────────────────────────────────────────────────
+
 export const StudentDashboard: React.FC = () => {
   const [showDropdown, setShowDropdown] = useState(false);
- 
+
   return (
     <div className="min-h-screen bg-slate-50/50 p-4 md:p-8 text-slate-800 antialiased">
-      
-      {/* Premium Header */}
+
+      {/* Header */}
       <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-            Student Dashboard
-          </h1>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Student Dashboard</h1>
           <p className="text-sm text-slate-500 mt-1">
             Welcome back, <span className="font-semibold text-slate-700">Yuvraj Singh</span> 👋
           </p>
@@ -557,13 +859,16 @@ export const StudentDashboard: React.FC = () => {
           </button>
 
           {showDropdown && (
-            <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-1 z-[9999]">  
+            <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-1 z-[9999]">
               <div className="p-3 border-b border-slate-100">
                 <h3 className="font-semibold text-sm text-slate-950">Yuvraj Singh</h3>
                 <p className="text-xs text-slate-500">yuvraj@example.com</p>
               </div>
               {['My Profile', 'My Courses', 'Certificates', 'Settings'].map((item) => (
-                <button key={item} className="w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                <button
+                  key={item}
+                  className="w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+                >
                   {item}
                 </button>
               ))}
@@ -572,24 +877,22 @@ export const StudentDashboard: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Grid Layout */}
+      {/* Main Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        {/* Left Side: Profile & Metrics (Col Span 1) */}
+
+        {/* ── Left column ── */}
         <div className="space-y-6">
-          {/* Student Profile Card */}
+
+          {/* Profile Card */}
           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
-            
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-purple-600" />
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 rounded-full bg-slate-800 flex items-center justify-center font-bold text-lg text-white shadow-inner">
                 YS
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h2 className="text-lg font-bold text-slate-900 leading-tight">
-                    Yuvraj Singh
-                  </h2>
+                  <h2 className="text-lg font-bold text-slate-900 leading-tight">Yuvraj Singh</h2>
                   <span className="bg-indigo-50 text-indigo-700 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-indigo-100">
                     STU001
                   </span>
@@ -599,38 +902,24 @@ export const StudentDashboard: React.FC = () => {
             </div>
 
             <div className="mt-6 pt-5 border-t border-slate-100 space-y-4">
-              <div className="flex items-center gap-3 text-xs">
-                <Mail className="w-4 h-4 text-slate-400" />
-                <div>
-                  <p className="text-slate-400">Email</p>
-                  <p className="font-medium text-slate-700">yuvraj@example.com</p>
+              {[
+                { icon: Mail, label: 'Email', value: 'yuvraj@example.com' },
+                { icon: Phone, label: 'Phone', value: '+91 9876543210' },
+                { icon: GraduationCap, label: 'University', value: 'Campus2Corporate University' },
+                { icon: MapPin, label: 'DOB', value: '30-12-2000' },
+              ].map(({ icon: Icon, label, value }) => (
+                <div key={label} className="flex items-center gap-3 text-xs">
+                  <Icon className="w-4 h-4 text-slate-400" />
+                  <div>
+                    <p className="text-slate-400">{label}</p>
+                    <p className="font-medium text-slate-700">{value}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3 text-xs">
-                <Phone className="w-4 h-4 text-slate-400" />
-                <div>
-                  <p className="text-slate-400">Phone</p>
-                  <p className="font-medium text-slate-700">+91 9876543210</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 text-xs">
-                <GraduationCap className="w-4 h-4 text-slate-400" />
-                <div>
-                  <p className="text-slate-400">University</p>
-                  <p className="font-medium text-slate-700">Campus2Corporate University</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 text-xs">
-                <MapPin className="w-4 h-4 text-slate-400" />
-                <div>
-                  <p className="text-slate-400">DOB</p>
-                  <p className="font-medium text-slate-700">30-12-2000</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* Registration Overview Panel */}
+          {/* Registration Overview */}
           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
             <h2 className="text-sm font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <BookOpenCheck className="w-4 h-4 text-indigo-500" />
@@ -641,9 +930,9 @@ export const StudentDashboard: React.FC = () => {
                 { label: 'Registered', val: '5', bg: 'bg-indigo-50/50', text: 'text-indigo-700', border: 'border-indigo-100/50' },
                 { label: 'Completed', val: '2', bg: 'bg-emerald-50/50', text: 'text-emerald-700', border: 'border-emerald-100/50' },
                 { label: 'Pending', val: '3', bg: 'bg-amber-50/50', text: 'text-amber-700', border: 'border-amber-100/50' },
-                { label: 'Certificates', val: '1', bg: 'bg-purple-50/50', text: 'text-purple-700', border: 'border-purple-100/50' }
-              ].map((stat, i) => (
-                <div key={i} className={`p-4 rounded-xl border ${stat.bg} ${stat.border}`}>
+                { label: 'Certificates', val: '1', bg: 'bg-purple-50/50', text: 'text-purple-700', border: 'border-purple-100/50' },
+              ].map((stat) => (
+                <div key={stat.label} className={`p-4 rounded-xl border ${stat.bg} ${stat.border}`}>
                   <p className="text-xs text-slate-500 font-medium">{stat.label}</p>
                   <p className={`text-2xl font-bold mt-1 ${stat.text}`}>{stat.val}</p>
                 </div>
@@ -651,62 +940,55 @@ export const StudentDashboard: React.FC = () => {
             </div>
           </div>
 
-          {/* ✅ AI FEATURE 1: Smart Study Planner — placed after Registration Overview in left column */}
+          {/* AI Study Planner */}
           <AIStudyPlanner />
         </div>
 
-        {/* Right Side: Graph & Modules (Col Span 2) */}
+        {/* ── Right column ── */}
         <div className="lg:col-span-2 space-y-6">
-          
+
           {/* Performance Chart */}
           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
             <div className="flex justify-between items-center mb-4">
               <div>
-                <h2 className="text-base font-semibold text-slate-900">
-                  Performance Overview
-                </h2>
+                <h2 className="text-base font-semibold text-slate-900">Performance Overview</h2>
                 <p className="text-xs text-slate-500">Learning score metric progression</p>
               </div>
             </div>
-
             <div className="w-full" style={{ height: 235 }}>
-              <ResponsiveContainer width="100%" height="100%"> 
-                <AreaChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={performanceData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="scoreColor" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#6366f1" stopOpacity={0.2}/>
-                      <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="#6366f1" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                   <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 11 }} />
                   <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 11 }} />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: '#1e293b', 
-                      borderRadius: '8px', 
-                      border: 'none', 
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: '#1e293b',
+                      borderRadius: '8px',
+                      border: 'none',
                       color: '#f8fafc',
-                      fontSize: '12px'
+                      fontSize: '12px',
                     }}
                   />
-                  <Area
-                    type="monotone"
-                    dataKey="score"
-                    stroke="#6366f1"
-                    strokeWidth={2}
-                    fillOpacity={1}
-                    fill="url(#scoreColor)"
-                  />
+                  <Area type="monotone" dataKey="score" stroke="#6366f1" strokeWidth={2} fillOpacity={1} fill="url(#scoreColor)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
           </div>
 
-          {/* ✅ AI FEATURE 2: Placement Readiness Analyzer — placed between Performance Chart and Modules */}
+          {/* AI Placement Readiness Analyzer */}
           <AIProfileAnalyzer />
 
-          {/* Combined Modules & Progress Bars */}
+          {/* AI ATS Resume Scorer */}
+          <AIATSScorer />
+
+          {/* Modules & Learning Progress */}
           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
             <div className="flex justify-between items-center mb-6">
               <div>
@@ -714,7 +996,6 @@ export const StudentDashboard: React.FC = () => {
                 <p className="text-xs text-slate-500">Track and monitor your course completion status</p>
               </div>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {modules.map((mod, idx) => (
                 <div key={idx} className="p-4 rounded-xl border border-slate-100 hover:border-slate-200 transition-colors bg-slate-50/30">
@@ -725,7 +1006,6 @@ export const StudentDashboard: React.FC = () => {
                     </div>
                     <span className="text-xs font-bold text-slate-600">{mod.progress}%</span>
                   </div>
-                  
                   <div className="w-full bg-slate-100 rounded-full h-2 mt-3">
                     <div
                       className={`h-2 rounded-full ${mod.color} transition-all duration-500`}
@@ -736,7 +1016,6 @@ export const StudentDashboard: React.FC = () => {
               ))}
             </div>
           </div>
-
         </div>
       </div>
 
@@ -746,10 +1025,9 @@ export const StudentDashboard: React.FC = () => {
           <h2 className="text-lg font-bold text-slate-950">Roadmap to Placement</h2>
           <p className="text-xs text-slate-500 mt-1">Navigate through step-by-step career readiness milestones</p>
         </div>
-          
+
         <div className="relative">
-          <div className="hidden lg:block absolute top-[26px] left-[6%] right-[6%] h-[2px] bg-slate-100"></div>
-          
+          <div className="hidden lg:block absolute top-[26px] left-[6%] right-[6%] h-[2px] bg-slate-100" />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-5">
             {[
               { step: '01', title: 'Profile Building', desc: 'Secure, verified credentials.', icon: UserCheck },
@@ -757,10 +1035,13 @@ export const StudentDashboard: React.FC = () => {
               { step: '03', title: 'Learning Roadmap', desc: 'Curated targeted content.', icon: BookOpen },
               { step: '04', title: 'Mentorship', desc: 'Mock trials & expert reviews.', icon: Users },
               { step: '05', title: 'AI Matching', desc: 'Vector matching active roles.', icon: Cpu },
-              { step: '06', title: 'Interview', desc: 'Calendars scheduling.', icon: Calendar },
-              { step: '07', title: 'Placement', desc: 'Final contract signing.', icon: Award }
-            ].map((item, idx) => (
-              <div key={idx} className="relative flex flex-col items-center text-center p-4 bg-slate-50/50 rounded-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100 hover:border-indigo-100 hover:bg-white group">
+              { step: '06', title: 'Interview', desc: 'Calendar scheduling.', icon: Calendar },
+              { step: '07', title: 'Placement', desc: 'Final contract signing.', icon: Award },
+            ].map((item) => (
+              <div
+                key={item.step}
+                className="relative flex flex-col items-center text-center p-4 bg-slate-50/50 rounded-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100 hover:border-indigo-100 hover:bg-white group"
+              >
                 <div className="w-12 h-12 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-slate-600 shadow-sm relative z-10 group-hover:border-indigo-200 group-hover:text-indigo-600 group-hover:shadow-md transition-all">
                   <item.icon className="w-5 h-5" />
                   <span className="absolute -top-1 -right-1 text-[8px] bg-slate-100 border border-slate-200 text-slate-500 font-mono w-5 h-5 rounded-full flex items-center justify-center font-bold shadow-sm group-hover:bg-indigo-50 group-hover:border-indigo-100 group-hover:text-indigo-600 transition-colors">
@@ -768,49 +1049,43 @@ export const StudentDashboard: React.FC = () => {
                   </span>
                 </div>
                 <h3 className="text-xs font-semibold text-slate-700 mt-4 group-hover:text-slate-900 transition-colors">{item.title}</h3>
-                <p className="text-[10px] text-slate-400 mt-1 leading-relaxed">
-                  {item.desc}
-                </p>
+                <p className="text-[10px] text-slate-400 mt-1 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Upcoming Activities Panel */}
+      {/* Upcoming Activities */}
       <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mt-6">
         <h2 className="text-base font-semibold text-slate-900 mb-6 flex items-center gap-2">
           <Clock className="w-5 h-5 text-indigo-500" />
           Upcoming Activities
         </h2>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             { title: 'React Assignment Submission', desc: 'Module 3 Project Submission', date: 'Due: 25 Jun', color: 'text-rose-600 bg-rose-50 border-rose-100' },
             { title: 'Aptitude Assessment', desc: 'Placement Prep Test', date: '28 Jun', color: 'text-amber-700 bg-amber-50 border-amber-100' },
             { title: 'Mentor Session', desc: 'One-on-One Career Guidance', date: '30 Jun', color: 'text-indigo-700 bg-indigo-50 border-indigo-100' },
-            { title: 'Mock Interview', desc: 'Technical Practice', date: '05 Jul', color: 'text-emerald-700 bg-emerald-50 border-emerald-100' }
-          ].map((activity, idx) => (
-            <div key={idx} className="p-4 rounded-xl border border-slate-100 flex flex-col justify-between hover:shadow-sm transition-shadow">
+            { title: 'Mock Interview', desc: 'Technical Practice', date: '05 Jul', color: 'text-emerald-700 bg-emerald-50 border-emerald-100' },
+          ].map((activity) => (
+            <div key={activity.title} className="p-4 rounded-xl border border-slate-100 flex flex-col justify-between hover:shadow-sm transition-shadow">
               <div>
                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${activity.color}`}>
                   {activity.date}
                 </span>
-                <h3 className="font-semibold text-sm text-slate-800 mt-3 leading-snug">
-                  {activity.title}
-                </h3>
+                <h3 className="font-semibold text-sm text-slate-800 mt-3 leading-snug">{activity.title}</h3>
               </div>
-              <p className="text-[11px] text-slate-400 mt-2">
-                {activity.desc}
-              </p>
+              <p className="text-[11px] text-slate-400 mt-2">{activity.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* ✅ AI FEATURE 3: AI Career Coach Chat — placed after Upcoming Activities at the bottom */}
+      {/* AI Career Coach */}
       <AICareerCoach />
-
     </div>
   );
 };
+
+export default StudentDashboard;
